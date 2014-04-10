@@ -104,6 +104,7 @@
 			echo jsonn("result", 1);
 			echo '"promotion":';
 			echo "[";
+			
 			while($row){
 			echo "{";
 			echo jsonn("promotion_id", $row["idhealth_promotion"]).",";

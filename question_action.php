@@ -84,10 +84,38 @@
 		
 	}
 	
-	function getall_promotion(){
+	function getall_questions(){
+		$q = new question();
+		$q->getall_question();
+		if($q){
+			$row = $q->fetch();
+			
+			echo "{";
+			echo jsonn("result", 1);
+			echo '"promotion":';
+			echo "[";
+			
+			while($row){
+			
+			echo "{";
+			echo jsonn("question_id", $row["qid"]).",";
+			echo jsonn("cid", $row["cid"]);
+			echo jsonn("cho_id", $row["idcho"]);		
+			echo jsons("question", $row["question"]);
+			
+			echo "}";
+			
+			$row = $q->fetch();
+			if($row){
+				echo ",";
+				
+			}
+			
 		
+			
+		}
 		
 	}
 
-
+		}
 ?>
