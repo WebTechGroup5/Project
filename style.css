@@ -1,45 +1,205 @@
-.hotspot{
-	text-decoration:underline;
-	color:blue;
-	cursor:pointer
+/*
+Group 5
+Members:
+    Kingston Coker
+    Senanu Fiam-Coblavie
+    Selassie Barbara Adzudor
+    Randelle Michel
+    Kevin Banful
+*/
+body
+{
+    width: 950px;
+    margin: auto;
+    padding-top: 2em;
+    background: url("images/blue.gif") no-repeat ;
+    font-size: .80em;
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana;
+    background-size: 1000px 950px;
+    line-height: 15px;
+    background-position: center;
 }
+/* health information system*/
+#pageheader{
+    height:3in;
+    text-align: center;
+    font-size: 4em;
+    color: whitesmoke;
+    background: url("images/menuItem2.jpg") no-repeat;
+    /*background-size: 1000px 2000px;*/
+    border-radius: 99px 0 99px 0px;
+}
+
+/* sidebar container */
+#mainnav{
+    width:3in;
+    vertical-align:top;
+    padding-top: 5em;
+}
+
+/* sidebar*/
+#mainnav .menuitem{
+    font-family: Lithos Pro Regular;
+    height: .5in;
+    text-decoration:none;
+    color:white;
+    cursor:hand;
+    text-transform: uppercase;
+    /*background: url("images/menuItem.jpg") no-repeat;*/
+    background-color: #34CC67; 
+    background-size: 200px 100px;
+    text-align: left;
+    margin: 1em 0 0 0;
+    padding: 1.9em 0 0 .4em;
+    /*border-radius: 6px;*/
+}
+
+#mainnav .menuitem:hover{
+    /*text-decoration:underline;*/
+    /*width: 2in;*/
+    background: url("images/blue.gif") no-repeat;
+    cursor:hand;
+    font-weight:bold;
+    background-size: 200px 100px;
+    background-color:Silver
+}
+
+/*top nav bar*/
+#divPageMenu{
+    /*margin-left: 2em;*/
+    background-color: #34CC67; 
+    border-color: white;
+    border-radius: 99px 99px 0px 0px;
+}
+
+#content .menuitem{
+    height: .4in;
+    text-decoration:none;
+    color: white;
+    /*background: url("images/blue.gif") no-repeat;*/
+    /*background-size: 200px 100px;*/
+    text-align: center;
+    margin: 0.5em 0 0 2em;
+    padding: 0.2em;
+}
+
+#content .menuitem:hover{
+    background: url("images/blue.gif") no-repeat;
+    /*background-size: 200px 100px;*/
+    text-align: center;
+    cursor:hand;
+    padding: 0.4em 0 .6em ;
+    margin: 0 0.5em 0 2em ;
+    /*margin: auto;*/
+    /*border-radius: 99px 99px 0px 0px;*/
+}
+
+#divPageMenu #txtSearch{
+    height: .3in;
+    text-decoration:none;
+    color: black;
+    /*background: url("images/blue.gif") no-repeat;*/
+    background-size: 200px 100px;
+    text-align: left;
+    margin: 0.3em 0 .2em 6em;
+    padding-top: 0.0em;
+    border-radius: 9px;
+}
+
+.hotspot{
+    text-decoration:underline;
+    color:blue;
+    cursor:pointer
+}
+
 .status{
-	background-color:Yellow
+    text-align: center;
+    background-color:#339967;
+
 }
 .error{
-	color:Red;
-	background-color:Yellow
-}
-/*
-#divPageMenu span{
-	text-decoration:underline;
-	color:blue;
-	cursor:pointer
-}*/
-.menuitem {
-	text-decoration:underline;
-	color:blue;
-	cursor:hand
-}
-.menuitem:hover{
-	text-decoration:underline;
-	cursor:hand;
-	font-weight:bold;
-	background-color:Silver
+    color:Red;
+    background-color:Yellow
 }
 
-#pageheader{
-	height:1in
+#divContent {
+    padding: 1em 1em 0 1.2em;
 }
-
-#mainnav{
-	width:2in;
-	vertical-align:top
-}
-
 
 #content {
-	width:10in;
-	vertical-align:top
-	
+    width:10in;
+    vertical-align: top;
 }
+
+
+/*--------------------DAFLA----------------------------*/
+
+.reportTable 
+{
+    border:1px;
+    /*border-collapse:collapse;*/
+}
+
+.reportTable .header
+{
+    background-color: #CC6600;
+    text-transform: uppercase;
+    color: White;
+}
+
+.reportTable .row1
+{
+    background-color: #14ACDF;
+}
+
+.reportTable .row2
+{
+    background-color:White;
+}
+
+.reportTable tr:hover
+{
+    background-color:#FCEA9C
+}
+
+.tableForm .label
+{
+    background-color: #CC6600;
+    text-transform:capitalize;
+    color: White;
+    text-align:right;
+}
+
+.tableForm .field
+{
+    background-color: #FFAE35;
+}
+.popupMenu
+{
+    background-color: #DC7518;
+    position: absolute;
+    display:none;
+    width: auto;
+}
+
+.popupMenu div
+{
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.popupMenu div:hover
+{
+    color: #FFFFFF;
+    text-decoration: underline;
+    background-color: #CC6600;
+}
+
+.popupForm
+{
+    background-color: #DC7518;
+    position: absolute;
+    display:none;
+    width: auto;
+}
+
