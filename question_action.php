@@ -4,19 +4,23 @@
 	include "question.php";
 	
 	$cmd = get_datan("cmd");
-	$id = get_data("id");
+	
 	
 	
 	switch($cmd){
 		
 		case 1:
 			//get question data
+			$id = get_datan("id");
+			retrieve_question($id);
 			
 			
 			break;
 		
 		case 2:
 			//delete promotion
+			$id = get_datan("id");
+			remove_question($id);
 			
 			break;
 			
@@ -35,7 +39,7 @@
 
 	}
 	
-	function get_question($id){
+	function retrieve_question($id){
 		$q = new question();
 		$p->retrieve_promotion($date, $venue);
 		if ($p){
@@ -63,7 +67,7 @@
 	
 	
 	
-	function delete_question($id){
+	function remove_question($id){
 		$q = new question();
 		$q->delete_question($id);
 		if(!$q){
