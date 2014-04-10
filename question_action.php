@@ -44,28 +44,18 @@
 			echo jsonn("result", 1);
 			echo '"promotion":';
 			echo "{";
-			echo jsonn("promotion_id", $row["idhealth_promotion"]).",";
-			echo jsons("date", $row["date"]);
-			echo jsons("venue", $row["venue"]);		
-			echo jsons("topic", $row["topic"]);
-			echo jsons("method", $row["method"]);
-			echo jsons("Target_audience", $row["target_audience"]);
-			echo jsonn("Number_audience", $row["number_of_audience"]);
-			echo jsons("remarks", $row["remarks"]);
-			echo jsons("month", $row["month"]); 
-			echo jsons("topic", $row["topic"]);
-			echo jsons("latitude", $row["latitude"]);	
-			echo jsons("longitude", $row["longitude"]);
-			echo jsons("image", $row["image"]);
-			echo jsonn("cho_id", $row["idcho"]);
-			echo jsonn("subdistrict_id", $row["subdistrict_id"]);
-			echo "}";
+			echo jsonn("question_id", $row["qid"]).",";
+			echo jsonn("cid", $row["cid"]);
+			echo jsonn("cho_id", $row["idcho"]);		
+			echo jsons("question", $row["question"]);
+			
+			echo "}}";
 			return;
 		}
 			
 		echo "{";
 		echo jsonn("result", 0).",";
-		echo jsons("message","error, no record retrieved");
+		echo jsons("message","error, no question retrieved");
 		echo "}";
 		
 			
@@ -73,9 +63,24 @@
 	
 	
 	
-	function delete_promotion($id){
-		$p = new health_promotion();
-		$p->delete_promotion($id);
+	function delete_question($id){
+		$q = new question();
+		$q->delete_question($id);
+		if(!$q){
+			echo "{";
+			echo jsonn("result", 0).",";
+			echo jsons("message","error, Could not delete question");
+			echo "}";	
+			
+			}
+		else {
+			echo "{";
+			echo jsonn("result", 1).",";
+			echo jsons("message","Deleted Question");
+			echo "}";	
+			
+		}
+		
 		
 	}
 	
