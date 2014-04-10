@@ -1,0 +1,45 @@
+.hotspot{
+	text-decoration:underline;
+	color:blue;
+	cursor:pointer
+}
+.status{
+	background-color:Yellow
+}
+.error{
+	color:Red;
+	background-color:Yellow
+}
+/*
+#divPageMenu span{
+	text-decoration:underline;
+	color:blue;
+	cursor:pointer
+}*/
+.menuitem {
+	text-decoration:underline;
+	color:blue;
+	cursor:hand
+}
+.menuitem:hover{
+	text-decoration:underline;
+	cursor:hand;
+	font-weight:bold;
+	background-color:Silver
+}
+
+#pageheader{
+	height:1in
+}
+
+#mainnav{
+	width:2in;
+	vertical-align:top
+}
+
+
+#content {
+	width:10in;
+	vertical-align:top
+	
+}
