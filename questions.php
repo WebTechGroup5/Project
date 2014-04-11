@@ -70,9 +70,11 @@ class questions extends adb {
     }
 	
 	
-	function count_answers(){
-		$query = "select count(*) from questions";	
-		return $this->query($query);
+	function count_answers($id){
+		$query = "select count(*) as c from answers where answers.qid = '$id' ";	
+		 $this->query($query);
+		 $row = $this->fetch();
+		 return $row["c"];
 	}
 
 }

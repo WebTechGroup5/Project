@@ -1,7 +1,7 @@
 <?php
 //Actions for questions
 	include "gen.php";
-	include "question.php";
+	include "questions.php";
 	
 	$cmd = get_datan("cmd");
 	
@@ -25,8 +25,16 @@
 			break;
 			
 		case 3:
-			//get all promotions 
+			//get all questionss 
 			getall_question();
+			break;
+			
+		case 4:
+			//add
+			$cid = get_datan("cid");
+			$idcho = get_datan("idcho");
+			$question = get_data("question");
+			save_question($cid, $idcho, $question);
 			break;
 			
 			
@@ -40,17 +48,17 @@
 	}
 	
 	function retrieve_question($id){
-		$q = new question();
-		$p->retrieve_promotion($date, $venue);
-		if ($p){
-			$row = $p->fetch();
+		$q = new questions();
+		$q->get_question($id);
+		if ($q){
+			$row = $q->fetch();
 			echo "{";
-			echo jsonn("result", 1);
+			echo jsonn("result", 1).",";
 			echo '"promotion":';
 			echo "{";
 			echo jsonn("question_id", $row["qid"]).",";
-			echo jsonn("cid", $row["cid"]);
-			echo jsonn("cho_id", $row["idcho"]);		
+			echo jsonn("cid", $row["cid"]).",";
+			echo jsonn("cho_id", $row["idcho"]).",";		
 			echo jsons("question", $row["question"]);
 			
 			echo "}}";
@@ -68,7 +76,7 @@
 	
 	
 	function remove_question($id){
-		$q = new question();
+		$q = new questions();
 		$q->delete_question($id);
 		if(!$q){
 			echo "{";
@@ -95,31 +103,53 @@
 			$row = $q->fetch();
 			
 			echo "{";
-			echo jsonn("result", 1);
+			echo jsonn("result", 1).",";
 			echo '"promotion":';
 			echo "[";
 			
 			while($row){
 			
-			echo "{";
-			echo jsonn("question_id", $row["qid"]).",";
-			echo jsonn("cid", $row["cid"]);
-			echo jsonn("cho_id", $row["idcho"]);		
-			echo jsons("question", $row["question"]);
-			
-			echo "}";
-			
-			$row = $q->fetch();
-			if($row){
-				echo ",";
+				echo "{";
+				echo jsonn("question_id", $row["qid"]).",";
+				echo jsonn("cid", $row["cid"]).",";
+				echo jsonn("cho_id", $row["idcho"]).",";		
+				echo jsons("question", $row["question"]);
 				
+				echo "}";
+				
+				$row = $q->fetch();
+				if($row){
+					echo ",";
+				}
 			}
 			
 		
 			
 		}
 		
+	
 	}
-
+		
+		function save_question($cid, $idcho, $question){
+			$q = new question();
+			
+			if($q->add_question($cid, $idcho, $question)){
+				echo "{";
+				echo jsonn("result",1).",";
+				echo jsons ("message", "Question added");
+				echo "}";
+				
+			}
+			else {
+				echo "{";
+				echo jsonn("result",0).",";
+				echo jsons ("message", "Error. Question could not be added.");
+				echo "}";
+				
+			}
+			
 		}
+	
+	
+	
 ?>
