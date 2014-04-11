@@ -68,8 +68,16 @@ class questions extends adb {
         $query = "Select qid, cid, idcho, question from questions where idcho = $idcho";
         return $this->query($query);
     }
+	
+	
+	function count_answers(){
+		$query = "select count(*) from questions";	
+		return $this->query($query);
+	}
 
 }
+
+
 
 //call methods here to test
 

@@ -26,7 +26,7 @@
 			
 		case 3:
 			//get all promotions 
-			
+			getall_question();
 			break;
 			
 			
