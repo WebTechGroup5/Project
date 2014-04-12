@@ -28,7 +28,7 @@ class questions extends adb {
     function add_question($cid, $idcho, $question) {
         //write the SQL query and call $this->query()
         $query = "Insert into questions(cid, idcho, question) values ('$cid', '$idcho', '$question');";
-        print $query;
+        
         return $this->query($query);
     }
 
@@ -40,7 +40,7 @@ class questions extends adb {
         $query = "Update webtech.questions set cid = $cid"
                 . "                         , idcho = $idcho"
                 . "                         , question = '$question' where qid = $qid";
-        print $query;
+   
         return $this->query($query);
     }
 
@@ -49,7 +49,7 @@ class questions extends adb {
      */
     function delete_question($qid) {
         $query = "Delete from webtech.questions where qid = $qid";
-        print $query;
+        
         return $this->query($query);
     }
 

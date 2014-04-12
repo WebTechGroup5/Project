@@ -2,6 +2,7 @@
 //Actions for questions
 	include "gen.php";
 	include "questions.php";
+	include "categories.php";
 	
 	$cmd = get_datan("cmd");
 	
@@ -31,16 +32,22 @@
 			
 		case 4:
 			//add
-			$cid = get_datan("cid");
+			
+			$c = new categories();
+			
+			$cid = get_data("cid");
 			$idcho = get_datan("idcho");
 			$question = get_data("question");
-			save_question($cid, $idcho, $question);
+			
+			$result = $c->getid_categories($cid);
+			
+			save_question($result, $idcho, $question);
 			break;
 			
 			
 		default:
 			echo "{";
-			echo jsonn("result", 1);
+			echo jsonn("result", 0);
 			echo ",";
 			echo jsons("message", "not a recognised command");
 			echo "}";
@@ -97,7 +104,7 @@
 	}
 	
 	function getall_questions(){
-		$q = new question();
+		$q = new questions();
 		$q->getall_question();
 		if($q){
 			$row = $q->fetch();
@@ -131,7 +138,8 @@
 	}
 		
 		function save_question($cid, $idcho, $question){
-			$q = new question();
+			$q = new questions();
+		
 			
 			if($q->add_question($cid, $idcho, $question)){
 				echo "{";

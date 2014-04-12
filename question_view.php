@@ -19,6 +19,7 @@
 			}
 			
 			function popUp(){
+				
 				$("#divAdd").fadeIn(500);
 				
 			}
@@ -27,13 +28,30 @@
             
             }
             
-            function saveAdd($cid){
-            	var cat = document.getElementById("question_category"); 
-            	var u = "question_action.php?cmd=4&cid=";
-            }
+            function saveAdd(){
+            	var cat = document.getElementById("question_category").value; 
+				var qu = document.getElementById("question").value;
+				var idcho = document.getElementById("idcho").value;
+            	var u = "question_action.php?cmd=4&cid="+cat +"&question=" + qu +"&idcho="+idcho+"";
+				showMsg(u);
+				
+				var r = syncAjax(u);
+				
+				if(r.result==1){
+					closeAdd();
+					showMsg(r.message);
+					
+				}
+				else{
+					showMsg(r.message);
+					
+				}
+			}
+				
 			
 			function closeAdd(){
 				$("#divAdd").fadeOut(1000);	
+				showMsg("Cancelled");
 			}
 			
 			function showMsg(msg){
@@ -127,13 +145,13 @@
 					</tr>
 					<tr>
 						<td class="label">Question:</td>
-						<td class="field"><input type="textarea" value="" id="question" >
+						<td class="field"><textarea cols="20" rows="5" value="" id="question" ></textarea>
 						</td>
-					</tr>
+					</tr
 					<tr>
 						<td class="label"></td>
 						<td class="field">
-							<input type="button" value="save" onClick="saveAdd($cid)" >
+							<input type="button" value="save" onClick="saveAdd()" >
 							<input type="button" value="cancel" onClick="closeAdd()" >
 						</td>
 					</tr>
