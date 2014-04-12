@@ -9,13 +9,13 @@ Members:
 */
 body
 {
-    width: 950px;
+    width: 1000px;
     margin: auto;
     padding-top: 2em;
     background: url("images/blue.gif") no-repeat ;
     font-size: .80em;
     font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana;
-    background-size: 1000px 950px;
+    background-size: 1050px 1200px;
     line-height: 15px;
     background-position: center;
 }
@@ -119,7 +119,7 @@ body
 }
 .error{
     color:Red;
-    background-color:Yellow
+    background-color:yellow;
 }
 
 #divContent {
@@ -129,6 +129,7 @@ body
 #content {
     width:10in;
     vertical-align: top;
+    padding: 0.7em 0 0 1em;
 }
 
 
@@ -144,7 +145,7 @@ body
 {
     background-color: #CC6600;
     text-transform: uppercase;
-    color: White;
+    color: white;
 }
 
 .reportTable .row1
@@ -159,7 +160,7 @@ body
 
 .reportTable tr:hover
 {
-    background-color:#FCEA9C
+    background-color:#FCEA9C;
 }
 
 .tableForm .label
