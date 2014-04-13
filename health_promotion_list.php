@@ -8,6 +8,9 @@
         <script>
             var gloabalVar;
             var spanVarPar;
+            
+            var voo;
+            var removeId;
             //makes a synchronous call to the page u and return the 
             //result as object
             function syncAjax(u) {
@@ -20,25 +23,30 @@
 
             }
             function edit(obj, id) {
+                
+                // cancel so you can load up a previous form
+                cancel();
+
                 var r = getHealthPromo(id);
+//                alert("result ----- " + r.result);
                 if (r.result == 0) {
                     //show error message
                     return;
                 }
                 //get the data from JSON object r and get the respective attributes from the object and load into the form
-                $("#topic").prop("value", r.promotion.topic);
-                $("#method").prop("value", r.promotion.method);
-                $("#venue").prop("value", r.promotion.venue);
-                $("#date").prop("value", r.promotion.date);
-                $("#target_audience").prop("value", r.promotion.target_audience);
-                $("#number_of_audience").prop("value", r.promotion.number_of_audience);
-                $("#remarks").prop("value", r.promotion.remarks);
-                $("#month").prop("value", r.promotion.month);
-                $("#latitude").prop("value", r.promotion.latitude);
-                $("#longitude").prop("value", r.promotion.longitude);
-                $("#image").prop("value", r.promotion.image);
-                $("#subdistrict").prop("value", r.promotion.subdistrict_id);
-                $("#idcho").prop("value", r.promotion.cho_id);
+                $("#topic").prop("value", r.promotion.topic);                        //       alert("topoc: "+r.promotion.topic);
+                $("#method").prop("value", r.promotion.method);                       //      alert("alert"+r.promotion.method);
+                $("#venue").prop("value", r.promotion.venue);                          //     alert("alert"+r.promotion.venue);
+                $("#date").prop("value", r.promotion.date);                            //     alert("alert"+r.promotion.date);
+                $("#target_audience").prop("value", r.promotion.target_audience);         //  alert("alert"+r.promotion.target_audience);
+                $("#number_of_audience").prop("value", r.promotion.number_of_audience);   //  alert("alert"+r.promotion.number_of_audience);
+                $("#remarks").prop("value", r.promotion.remarks);                         //  alert("alert"+r.promotion.remarks);
+                $("#month").prop("value", r.promotion.month);                            //   alert("alert"+r.promotion.month);
+                $("#latitude").prop("value", r.promotion.latitude);                       //  alert("alert"+r.promotion.latitude);
+                $("#longitude").prop("value", r.promotion.longitude);                    //   alert("alert"+r.promotion.longitude);
+                $("#image").prop("value", r.promotion.image);                            //   alert("alert"+r.promotion.image);
+                $("#subdistrict").prop("value", r.promotion.subdistrict_id);            //    alert("alert"+r.promotion.subdistrict_id);
+                $("#idcho").prop("value", r.promotion.cho_id);                          //    alert("alert"+r.promotion.cho_id);
                 //show the form
                 //find where the user clicked and store it in x and y
                 var y = event.clientY;
@@ -63,48 +71,78 @@
             //makes asynchronous call to the save page
             function save() {
                 //complete the url
-                var vt = document.getElementById("topic").value;
-                var vm = document.getElementById("method").value;
-                var vv = document.getElementById("venue").value;
-                var vd = document.getElementById("date").value;
-                var vta = document.getElementById("target_audience").value;
-                var vn = document.getElementById("number_of_audience").value;
-                var vr = document.getElementById("remarks").value;
-                var vmo = document.getElementById("month").value;
-                var vla = document.getElementById("latitude").value;
-                var vlo = document.getElementById("longitude").value;
-                var vi = document.getElementById("image").value;
-                var vs = document.getElementById("subdistrict").value;
-                var vid = document.getElementById("idcho").value;
-                
+                var vtop = document.getElementById("topic").value;
+                var vmeth = document.getElementById("method").value;
+                var vven = document.getElementById("venue").value;
+                var vdat = document.getElementById("date").value;
+                var vtar = document.getElementById("target_audience").value;
+                var vnum = document.getElementById("number_of_audience").value;
+                var vrem = document.getElementById("remarks").value;
+                var vmon = document.getElementById("month").value;
+                var vlat = document.getElementById("latitude").value;
+                var vlon = document.getElementById("longitude").value;
+                var vim = document.getElementById("image").value;
+                var vsub = document.getElementById("subdistrict").value;
+                var vidc = document.getElementById("idcho").value;
+
                 var id = gloabalVar;
-                
-                var u = "health_promotion_action.php?cmd=4&idhp=" + id + "&vn=" + vn + "&vs=" + vs + "&vu=" + vid;
-                
+
+                var u = "health_promotion_action.php?cmd=4&idhp=" + id + "&date=" + vdat + "&ven=" + vven + "&top=" + vtop
+                        + "&meth=" + vmeth + "&tar=" + vtar + "&num_aud=" + vnum + "&month=" + vmon + "&lat=" + vlat + "&lon=" + vlon
+                        + "&img=" + vim + "&sub_id=" + vsub + "&idcho=" + vidc + "&rmks=" + vrem;
+
                 r = syncAjax(u);
 
                 //change things in the span
                 var nameCol = $(spanVarPar).children("td").get(1);
                 $(nameCol).text("");
-                $(nameCol).append("<a href=#>" + vn + "</a>");
+                $(nameCol).append("<a href=#>" + vtop + "</a>");
 
                 $(nameCol).css({'color': 'blue'});
                 cancel();
             }
 
             function saveDone(data) {
-
                 alert(data);
             }
-            
-            function del(obj,id){
-                var u = "health_promotion_action.php?cmd=3&idhp=" + id;
-                return syncAjax(u);
+
+            function del(obj, id) {
+                // cancel so you can load up a previous form
+                cancel();
+                var r = getHealthPromo(id);
+                
+                if (r.result == 0) {
+                    //show error message
+                    return;
+                }
+                //show the form
+                //find where the user clicked and store it in x and y
+                var y = event.clientY;
+                var x = event.clientX / 1.5;
+                //use x and y to set the location of the form
+                $("#divDel").css("top", y);
+                $("#divDel").css("left", x);
+                //display the form
+                $("#divDel").fadeIn(250);
+                
+                gloabalVar = id;
+                
+                spanVarPar = $(obj).closest("tr");
             }
+            
+            function rem(){
+                spanVarPar.remove();
+
+                var u = "health_promotion_action.php?cmd=3&idhp=" + gloabalVar;
+                r = syncAjax(u);
+                cancel();
+            }
+
             //hides the form
             function cancel() {
                 //fade out the form in half a second
                 $("#divEdit").fadeOut(250);
+                $("#divDel").fadeOut(250);
             }
         </script>
 
@@ -168,8 +206,8 @@
                             echo "<tr $style >";
                             echo "<td>$id</td>";
                             echo "<td><a href='health_promotion_detail.php?id=$id'>$row[topic]</a></td>";
-                            echo "<td><a href='#'>$row[method]</a></td>";
-                            echo "<td><a href='#'>$row[date]</a></td>";
+                            echo "<td>$row[method]</td>";
+                            echo "<td>$row[date]</td>";
                             echo "<td><span class='hotspot' onclick='edit(this,$id)'>edit<span></td>";
                             echo "<td><span class='hotspot' onclick='del(this,$id)'>del<span></td>";
                             echo "</tr>";
@@ -233,9 +271,19 @@
                     <td class="label"></td>
                     <td class="field"><input type="button" value="cancel" onclick="cancel()" ></td>
                 </tr>
-            </table
-
+            </table>
         </div>
 
+        <div id="divDel" class="popupForm">
+            <table class="tableForm" >
+                <tr>
+                    <td>Are you sure you want to delete?</td>
+                </tr>
+                <tr>
+                    <td class="field"><input type="button" value="YES" onclick="rem()" ></td>
+                    <td class="field"><input type="button" value="NO" onclick="cancel()" ></td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>	
