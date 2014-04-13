@@ -24,8 +24,14 @@
 				
 			}
             
-            function getQuestion(){
-            
+            function getQuestion(qid){
+				u = "question_action.php?cmd=1&id="+qid;
+				var r = syncAjax(u);
+				showMsg(r.promotion.question);
+				if(r.result==1){
+            		return r.promotion.question;
+				}
+				return "Question not found..";
             }
             
             function saveAdd(){
@@ -47,11 +53,28 @@
 					
 				}
 			}
+			
+			function showAnswers(qid){
+				//Get answers from db
+				
+				//Get question from db
+				$("#question_2").text(getQuestion(qid));
+				//Show form
+				$("#divShowAnswers").fadeIn(500);
+				
+				
+			}
 				
 			
-			function closeAdd(){
+			function closeAddQuestion(){
 				$("#divAdd").fadeOut(1000);	
 				showMsg("Cancelled");
+			}
+			
+			function closeAnswers(){
+				$("#divShowAnswers").fadeOut(1000);	
+				showMsg("Answer Pop up Cancelled");
+				
 			}
 			
 			function showMsg(msg){
@@ -148,13 +171,41 @@
 						<td class="field"><textarea cols="20" rows="5" value="" id="question" ></textarea>
 						</td>
 					</tr
-					<tr>
+					><tr>
 						<td class="label"></td>
 						<td class="field">
 							<input type="button" value="save" onClick="saveAdd()" >
 							<input type="button" value="cancel" onClick="closeAdd()" >
 						</td>
 					</tr>
+			</table>
+				
+	</div>
+    
+    
+    
+    <div id="divShowAnswers" class="popupForm">
+		<table class="tableForm" >
+        			<tr>
+						<td class = "label">Question: </td>
+                        <td id = "question_2">None</td>
+					</tr>
+                    <tr>
+						<td class = "label">Answers:</td>
+                        <td id = "count">
+                        	<ul>
+                        	<?php
+                        		echo "<li>YOGURT</li>";
+							?>
+                        	</ul>
+                        </td>
+					</tr>
+                    <tr>
+						
+					</tr>
+                    <tr>
+                    	<td><input type = "button" value = "Close" onClick="closeAnswers()"> </td>
+                    </tr>
 			</table>
 				
 	</div>
@@ -181,9 +232,9 @@
 								echo "<td>".$row["qid"]."</td>";
 								echo "<td>".$row["question"]."</td>";
 								echo "<td>". $count."</td>";
-								echo "<td><a href = ./question_answers_view.php?qid=".$row["qid"]." onclick = popUp(this, $id)>VIEW ANSWERS</a></td>";
+								echo "<td><a onclick = showAnswers($id)>VIEW ANSWERS</a></td>";
 								
-								echo "<td><a href = ./answer_add.php?qid=".$row["qid"].">ANSWER</a></td>";
+								echo "<td><a href = ./answer_add.php?qid=".$row["qid"]." >ANSWER</a></td>";
 								echo "</tr>";
 								$row = $questions_obj->fetch();
 							}

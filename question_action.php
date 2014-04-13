@@ -57,8 +57,9 @@
 	function retrieve_question($id){
 		$q = new questions();
 		$q->get_question($id);
-		if ($q){
-			$row = $q->fetch();
+		$row = $q->fetch();
+		if ($row){
+			
 			echo "{";
 			echo jsonn("result", 1).",";
 			echo '"promotion":';

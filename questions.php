@@ -39,7 +39,7 @@ class questions extends adb {
         //write the SQL query and call $this->query()
         $query = "Update webtech.questions set cid = $cid"
                 . "                         , idcho = $idcho"
-                . "                         , question = '$question' where qid = $qid";
+                . "                         , question = '$question' where qid = '$qid'";
    
         return $this->query($query);
     }
@@ -57,8 +57,10 @@ class questions extends adb {
      * Gets a question based on the qid
      */
     function get_question($qid) {
-        $query = "Select qid, cid, idcho, question from questions where qid = $qid";
-        return $this->query($query);
+        $query = "Select qid, cid, idcho, question from questions where qid = '$qid'";
+		$result = $this->query($query);
+		//print_r($result);
+        return $result;
     }
 
     /**
