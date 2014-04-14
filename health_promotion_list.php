@@ -86,11 +86,26 @@
                 var vidc = document.getElementById("idcho").value;
 
                 var id = gloabalVar;
+//                alert(id);
+//                alert(vtop);
+//                alert(vmeth);
+//                alert(vven);
+//                alert(vdat);
+//                alert(vtar);
+//                alert(vnum);
+//                alert(vrem);
+//                alert(vmon);
+//                alert(vlat);
+//                alert(vlon);
+//                alert(vim);
+//                alert(vsub);
+//                alert(vidc);
 
                 var u = "health_promotion_action.php?cmd=4&idhp=" + id + "&date=" + vdat + "&ven=" + vven + "&top=" + vtop
                         + "&meth=" + vmeth + "&tar=" + vtar + "&num_aud=" + vnum + "&month=" + vmon + "&lat=" + vlat + "&lon=" + vlon
                         + "&img=" + vim + "&sub_id=" + vsub + "&idcho=" + vidc + "&rmks=" + vrem;
 
+//                alert(u);
                 r = syncAjax(u);
 
                 //change things in the span
@@ -233,7 +248,7 @@
                     <td class="label">Venue :</td>
                     <td class="field"><input type="text" value="" id="venue" ></td>
                     <td class="label">Date :</td>
-                    <td class="field"><input type="text" value="" id="date" ></td>
+                    <td class="field"><input type="date" value="" id="date" ></td>
                 </tr>
                 <tr>
                     <td class="label">Target Audience :</td>
@@ -243,7 +258,7 @@
                 </tr>
                 <tr>
                     <td class="label">Remarks :</td>
-                    <td class="field"><input type="text" value="" id="remarks" ></td>
+                    <td class="field"><textarea type="textarea" value="" id="remarks" ></textarea></td>
                     <td class="label">Month :</td>
                     <td class="field"><input type="text" value="" id="month" ></td>
                 </tr>

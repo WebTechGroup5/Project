@@ -51,19 +51,19 @@ switch ($cmd) {
 
 function update_promotion() {
     $idhp = get_datan('idhp');
-    $date = get_datan('date');
-    $venue = get_datan('ven');
-    $topic = get_datan('top');
-    $method = get_datan('meth');
+    $date = get_data('date');
+    $venue = get_data('ven');
+    $topic = get_data('top');
+    $method = get_data('meth');
     $target_aud = get_datan('tar');
     $num_of_aud = get_datan('num_aud');
-    $month = get_datan('month');
+    $month = get_data('month');
     $lat = get_datan('lat');
     $lon = get_datan('lon');
-    $image = get_datan('img');
+    $image = get_data('img');
     $sub_id = get_datan('sub_id');
     $idcho = get_datan('idcho');
-    $remarks = get_datan('rmks');
+    $remarks = get_data('rmks');
 
     $p = new health_promotion();
     $row = $p->update_promotion($idhp, $date, $venue, $topic, $method, $target_aud, $num_of_aud, $remarks, $month, $lat, $lon, $image, $idcho, $sub_id);
@@ -104,13 +104,13 @@ function get_promotion() {
         echo jsons("venue", $row["venue"]) . ",";
         echo jsons("topic", $row["topic"]) . ",";
         echo jsons("method", $row["method"]) . ",";
-        echo jsons("target_audience", $row["target_audience"]) . ",";
+        echo jsonn("target_audience", $row["target_audience"]) . ",";
         echo jsonn("number_of_audience", $row["number_of_audience"]) . ",";
         echo jsons("remarks", $row["remarks"]) . ",";
         echo jsons("month", $row["month"]) . ",";
         echo jsons("topic", $row["topic"]) . ",";
-        echo jsons("latitude", $row["latitude"]) . ",";
-        echo jsons("longitude", $row["longitude"]) . ",";
+        echo jsonn("latitude", $row["latitude"]) . ",";
+        echo jsonn("longitude", $row["longitude"]) . ",";
         echo jsons("image", $row["image"]) . ",";
         echo jsonn("cho_id", $row["idcho"]) . ",";
         echo jsonn("subdistrict_id", $row["subdistrict_id"]);
@@ -140,13 +140,13 @@ function get_promotion_by_date_venue() {
         echo jsons("venue", $row["venue"]) . ",";
         echo jsons("topic", $row["topic"]) . ",";
         echo jsons("method", $row["method"]) . ",";
-        echo jsons("target_audience", $row["target_audience"]) . ",";
+        echo jsonn("target_audience", $row["target_audience"]) . ",";
         echo jsonn("number_of_audience", $row["number_of_audience"]) . ",";
         echo jsons("remarks", $row["remarks"]) . ",";
         echo jsons("month", $row["month"]) . ",";
         echo jsons("topic", $row["topic"]) . ",";
-        echo jsons("latitude", $row["latitude"]) . ",";
-        echo jsons("longitude", $row["longitude"]) . ",";
+        echo jsonn("latitude", $row["latitude"]) . ",";
+        echo jsonn("longitude", $row["longitude"]) . ",";
         echo jsons("image", $row["image"]) . ",";
         echo jsonn("cho_id", $row["idcho"]) . ",";
         echo jsonn("subdistrict_id", $row["subdistrict_id"]);
@@ -199,13 +199,13 @@ function get_all_promotions() {
             echo jsons("venue", $row["venue"]) . ",";
             echo jsons("topic", $row["topic"]) . ",";
             echo jsons("method", $row["method"]) . ",";
-            echo jsons("target_audience", $row["target_audience"]) . ",";
+            echo jsonn("target_audience", $row["target_audience"]) . ",";
             echo jsonn("number_of_audience", $row["number_of_audience"]) . ",";
             echo jsons("remarks", $row["remarks"]) . ",";
             echo jsons("month", $row["month"]) . ",";
             echo jsons("topic", $row["topic"]) . ",";
-            echo jsons("latitude", $row["latitude"]) . ",";
-            echo jsons("longitude", $row["longitude"]) . ",";
+            echo jsonn("latitude", $row["latitude"]) . ",";
+            echo jsonn("longitude", $row["longitude"]) . ",";
             echo jsons("image", $row["image"]) . ",";
             echo jsonn("cho_id", $row["idcho"]) . ",";
             echo jsonn("subdistrict_id", $row["subdistrict_id"]);
