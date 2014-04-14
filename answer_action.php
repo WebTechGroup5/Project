@@ -158,15 +158,15 @@
 			echo "}";
 			return;
 		}
-		echo "{";
-		echo jsonn("result", 0).",";
-		echo jsons("message","record retrieved");
-		echo "}";
+		//echo "{";
+		//echo jsonn("result", 0).",";
+		//echo jsons("message","record retrieved");
+		//echo "}";
 		
 		
 			
 			echo "{";
-			echo jsonn("result", 5).",";
+			echo jsonn("result", 1).",";
 			echo '"answers":';
 			echo "[";
 			
@@ -181,12 +181,13 @@
 			if ($row){
 			echo ",";
 			}
-			echo "]";
-		    echo  "}";
+			
+		    
 			
 		}
 		
-					
+		echo "]";
+		echo  "}";	
 	}
 
 	
