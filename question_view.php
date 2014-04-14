@@ -59,6 +59,13 @@
 				
 				//Get question from db
 				$("#question_2").text(getQuestion(qid));
+				//find where the user clicked and store it in x and y
+				var y=event.clientY;
+				var x=event.clientX/2;
+				//use x and y to set the location of the form
+				$("#divShowAnswers").css("top",y);
+				$("#divShowAnswers").css("left",x);
+				
 				//Show form
 				$("#divShowAnswers").fadeIn(500);
 				
@@ -211,9 +218,9 @@
 	</div>
 
 
-	<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+	<table class="reportTable">
                     <thead>
-                        <tr>
+                        <tr class = header>
                             
                         
                             <th>Question Number</th>
@@ -225,14 +232,22 @@
                     </thead>
                     <tbody>
                     	<?php
+							$row_counter = 1;
 							while($row){
+								
+								 if ($row_counter % 2 == 0) {
+                                $style = " class='row1' ";
+                            } else {
+                                $style = " class='row2' ";
+                            }
+								$row_counter++;
 								$id = $row["qid"];
 								$count = $questions_obj2->count_answers($id);
-								echo "<tr>";
+								echo "<tr $style>";
 								echo "<td>".$row["qid"]."</td>";
 								echo "<td>".$row["question"]."</td>";
 								echo "<td>". $count."</td>";
-								echo "<td><a onclick = showAnswers($id)>VIEW ANSWERS</a></td>";
+								echo "<td onclick = showAnswers($id)>->VIEW ANSWERS</a></td>";
 								
 								echo "<td><a href = ./answer_add.php?qid=".$row["qid"]." >ANSWER</a></td>";
 								echo "</tr>";
