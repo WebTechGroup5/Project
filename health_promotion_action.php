@@ -49,6 +49,47 @@ switch ($cmd) {
         echo "}";
 }
 
+function add_promotion(){
+    $idhp = get_datan('idhp');
+    $date = get_data('date');
+    $venue = get_data('ven');
+    $topic = get_data('top');
+    $method = get_data('meth');
+    $target_aud = get_datan('tar');
+    $num_of_aud = get_datan('num_aud');
+    $month = get_data('month');
+    $lat = get_datan('lat');
+    $lon = get_datan('lon');
+    $image = get_data('img');
+    $sub_id = get_datan('sub_id');
+    $idcho = get_datan('idcho');
+    $remarks = get_data('rmks');
+
+    $p = new health_promotion();
+    $row = $p->add_promotion($idhp, $date, $venue, $topic, $method, $target_aud, $num_of_aud, $remarks, $month, $lat, $lon, $image, $idcho, $sub_id);
+
+    if (!$row) {
+        echo "{";
+        echo jsonn("result", 0) . ",";
+        echo jsons("message", "Not added");
+        echo "}";
+        return;
+    }
+
+    echo "{";
+    echo jsonn("result", 5) . ",";
+    echo '"health_promotion":{';
+    echo jsonn("id", $idhp) . ",";
+    //name
+    print jsons("topic", $topic) . ",";
+    //schedule
+    print jsons("method", $method) . ",";
+    //url
+    print jsons("date", $date);
+    echo "}";
+    echo "}";
+}
+
 function update_promotion() {
     $idhp = get_datan('idhp');
     $date = get_data('date');
@@ -76,13 +117,13 @@ function update_promotion() {
     }
 
     echo "{";
-    echo jsonn("result", 3) . ",";
+    echo jsonn("result", 4) . ",";
     echo '"health_promotion":{';
     echo jsonn("id", $idhp) . ",";
     //name
     print jsons("topic", $topic) . ",";
     //schedule
-    print jsonn("method", $method) . ",";
+    print jsons("method", $method) . ",";
     //url
     print jsons("date", $date);
     echo "}";
@@ -132,7 +173,7 @@ function get_promotion_by_date_venue() {
     if ($p) {
         $row = $p->fetch();
         echo "{";
-        echo jsonn("result", 1);
+        echo jsonn("result", 6);
         echo ',"promotion":';
         echo "{";
         echo jsonn("promotion_id", $row["idhealth_promotion"]) . ",";
@@ -174,7 +215,7 @@ function delete_promotion() {
         echo "}";
     } else {
         echo "{";
-        echo jsonn("result", 1) . ",";
+        echo jsonn("result", 3) . ",";
         echo jsons("message", "Deleted");
         echo "}";
     }
@@ -188,7 +229,7 @@ function get_all_promotions() {
         $row = $p->fetch();
 
         echo "{";
-        echo jsonn("result", 1);
+        echo jsonn("result", 2);
         echo ',"all_promotions":';
         echo "[";
 

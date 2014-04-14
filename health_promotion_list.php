@@ -114,6 +114,15 @@
                 $(nameCol).append("<a href=#>" + vtop + "</a>");
 
                 $(nameCol).css({'color': 'blue'});
+                
+                // method column change dymincs
+                var methodColumn = $(spanVarPar).children("td").get(2);
+                $(methodColumn).text(vmeth);
+                
+                // date column change dymincs
+                var dateColumn = $(spanVarPar).children("td").get(3);
+                $(dateColumn).text(vdat);
+                
                 cancel();
             }
 
