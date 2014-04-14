@@ -23,7 +23,7 @@
 			
 		case 3:
 			//get all answers 
-			getall_answer();
+//getall_answer();
 			break;
 			
 		case 4:
@@ -31,6 +31,10 @@
 			add_answer();
 			
 			break;
+			
+		case 5:
+			get_all_answers_str();
+		break;
 		default:
 			echo "{";
 			echo jsonn("result", 1);
@@ -42,7 +46,7 @@
 	function get_answer(){
 	$id=get_datan("id");
 		$a = new answers();
-		$a->get_answer($id);
+		$a->get_answer_str($id);
 		$row=$a->fetch();
 		if(!$row){
 			echo "{";
@@ -61,6 +65,8 @@
 			echo jsons("answer",$row['answer']);
 			echo "}";
 		echo "}";
+		
+		
 	}
 		
 		//
@@ -83,7 +89,7 @@
 			}
 		
 	}
-	
+	/*
 	function getall_answers(){
 		$a = new answers();
 		$a->getall_answer();
@@ -118,7 +124,7 @@
 			}
 			echo "]";
 		    echo  "}";
-			
+			}
 		
 		function add_answer(){
 									
@@ -135,8 +141,57 @@
 			else{
 			echo '{"result":1,"message":"delete successful"}';
 			
+			
 			}
+			
+		}*/
+			
+		function get_all_answers_str(){
+		$id=get_datan("id");
+		$var = new answers();
+		$var->get_answer_str($id);
+		$row=$var->fetch();
+		if(!$row){
+			echo "{";
+			echo jsonn("result",0). ",";
+			echo jsons("message","data not found");
+			echo "}";
+			return;
+		}
+		echo "{";
+		echo jsonn("result", 0).",";
+		echo jsons("message","record retrieved");
+		echo "}";
+		return;
+		
+			
+			echo "{";
+			echo jsonn("result", 5).",";
+			echo '"answers":';
+			echo "[";
+			
+		while($row){
+			echo "{";
+			echo jsonn("qid",$row["qid"]).",";
+			echo jsonn("aid",$row["aid"]).",";
+			echo jsons("answer",$row["answer"]);
+			echo "}";
+						
+			$row=$var->fetch();
+			if ($row){
+			echo ",";
+			}
+			echo "]";
+		    echo  "}";
+			
+		}
+		
 					
 	}
+<<<<<<< HEAD
+	}
 	
+=======
+?>
+>>>>>>> 5516aed1984c698dee83e1307b24bd948759322a
 	
