@@ -37,7 +37,7 @@
 		break;
 		default:
 			echo "{";
-			echo jsonn("result", 1);
+			echo jsonn("result", 0);
 			echo ",";
 			echo jsons("message", "not a recognised command");
 			echo "}";
@@ -162,7 +162,7 @@
 		echo jsonn("result", 0).",";
 		echo jsons("message","record retrieved");
 		echo "}";
-		return;
+		
 		
 			
 			echo "{";
@@ -188,14 +188,7 @@
 		
 					
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-	}
+
 	
-=======
-?>
->>>>>>> 5516aed1984c698dee83e1307b24bd948759322a
-=======
-?>
->>>>>>> 5516aed1984c698dee83e1307b24bd948759322a
 	
+?>
