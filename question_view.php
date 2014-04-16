@@ -59,6 +59,18 @@
 				
 				//Get question from db
 				$("#question_2").text(getQuestion(qid));
+				
+				//Get answers from db
+				var u = "answer_action.php?cmd=5&id="+qid;
+				var r = syncAjax(u);
+				
+				//Putting answers in display
+				$("#answerlist").empty();
+				for(var i = 0; i < r.answers.length; i++){
+					$("#answerlist").append("<li>"+r.answers[i].answer+" </li>");	
+				}
+				
+				
 				//find where the user clicked and store it in x and y
 				var y=event.clientY;
 				var x=event.clientX/2;
@@ -128,6 +140,8 @@
     <?php
 			include './questions.php';
 			include './categories.php';
+			include './answers.php';
+			$ans = new answers();
 			$categories_obj = new categories();
 			$categories_obj->getall_categories();
 			$rows_categories = $categories_obj->fetch();
@@ -182,7 +196,7 @@
 						<td class="label"></td>
 						<td class="field">
 							<input type="button" value="save" onClick="saveAdd()" >
-							<input type="button" value="cancel" onClick="closeAdd()" >
+							<input type="button" value="cancel" onClick="closeAddQuestion()" >
 						</td>
 					</tr>
 			</table>
@@ -200,8 +214,9 @@
                     <tr>
 						<td class = "label">Answers:</td>
                         <td id = "count">
-                        	<ul>
+                        	<ul id = answerlist>
                         	<?php
+								
                         		echo "<li>YOGURT</li>";
 							?>
                         	</ul>
