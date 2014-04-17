@@ -19,9 +19,21 @@
 			}
 			
 			function popUp(){
-				
+				$
 				$("#divAdd").fadeIn(500);
 				
+			}
+			
+			function answerAQuestion($id){
+				//find where the user clicked and store it in x and y
+				var y=event.clientY;
+				var x=event.clientX;
+				//use x and y to set the location of the form
+				$("#divAddAnswer").css("top",y);
+				$("#divAddAnswer").css("left",x);
+				
+				$("#question_3").text(getQuestion($id));
+				$("#divAddAnswer").fadeIn(500);	
 			}
             
             function getQuestion(qid){
@@ -34,7 +46,7 @@
 				return "Question not found..";
             }
             
-            function saveAdd(){
+            function saveAddQuestion(){
             	var cat = document.getElementById("question_category").value; 
 				var qu = document.getElementById("question").value;
 				var idcho = document.getElementById("idcho").value;
@@ -88,6 +100,12 @@
 			function closeAddQuestion(){
 				$("#divAdd").fadeOut(1000);	
 				showMsg("Cancelled");
+			}
+			
+			function closeAnswer(){
+				$("#divAddAnswer").fadeOut(1000);	
+				showMsg("Answer Pop up Cancelled");
+				
 			}
 			
 			function closeAnswers(){
@@ -195,7 +213,7 @@
 					><tr>
 						<td class="label"></td>
 						<td class="field">
-							<input type="button" value="save" onClick="saveAdd()" >
+							<input type="button" value="save" onClick="saveAddQuestion()" >
 							<input type="button" value="cancel" onClick="closeAddQuestion()" >
 						</td>
 					</tr>
@@ -227,6 +245,32 @@
 					</tr>
                     <tr>
                     	<td><input type = "button" value = "Close" onClick="closeAnswers()"> </td>
+                    </tr>
+			</table>
+				
+	</div>
+    
+    
+        <div id="divAddAnswer" class="popupForm">
+		<table class="tableForm" >
+        			<tr>
+						<td class = "label">Question: </td>
+                        <td id = "question_3">None</td>
+					</tr>
+                    <tr>
+						<td class = "label">Answers:</td>
+                        <td id = "answer">
+                        	<textarea cols = 20 rows = 5 id = "answerArea"></textarea>
+                        </td>
+					</tr>
+                    <tr>
+						
+					</tr>
+                    <tr>
+                    	<td><input type = "button" value = "Close" onClick="closeAnswer()"> </td>
+                    </tr>
+                     <tr>
+                    	<td><input type = "button" value = "Save" onClick="saveAnswer()"> </td>
                     </tr>
 			</table>
 				
@@ -264,7 +308,7 @@
 								echo "<td>". $count."</td>";
 								echo "<td onclick = showAnswers($id)>->VIEW ANSWERS</a></td>";
 								
-								echo "<td><a href = ./answer_add.php?qid=".$row["qid"]." >ANSWER</a></td>";
+								echo "<td onclick = answerAQuestion($id)><a href >ANSWER</a></td>";
 								echo "</tr>";
 								$row = $questions_obj->fetch();
 							}
