@@ -40,6 +40,11 @@ switch ($cmd) {
         // get one promotion
         get_promotion_by_date_venue();
         break;
+    
+    case 7;
+        // get idcho from health promotion
+        get_cho_by_promo_json();
+        break;
 
     default:
         echo "{";
@@ -49,8 +54,12 @@ switch ($cmd) {
         echo "}";
 }
 
+function get_cho_by_promo_json(){
+    
+}
+
 function add_promotion(){
-    $idhp = get_datan('idhp');
+//    $idhp = get_datan('idhp');
     $date = get_data('date');
     $venue = get_data('ven');
     $topic = get_data('top');
@@ -66,8 +75,7 @@ function add_promotion(){
     $remarks = get_data('rmks');
 
     $p = new health_promotion();
-    $row = $p->add_promotion($idhp, $date, $venue, $topic, $method, $target_aud, $num_of_aud, $remarks, $month, $lat, $lon, $image, $idcho, $sub_id);
-
+    $row = $p->add_promotion($date, $venue, $topic, $method, $target_aud, $num_of_aud, $remarks, $month, $lat, $lon, $image, $idcho, $sub_id);
     if (!$row) {
         echo "{";
         echo jsonn("result", 0) . ",";
@@ -75,11 +83,12 @@ function add_promotion(){
         echo "}";
         return;
     }
-
+//    echo $ro
     echo "{";
     echo jsonn("result", 5) . ",";
     echo '"health_promotion":{';
-    echo jsonn("id", $idhp) . ",";
+    
+    print jsonn("id", $p->get_insert_id()) . ",";
     //name
     print jsons("topic", $topic) . ",";
     //schedule
@@ -92,6 +101,12 @@ function add_promotion(){
 
 function update_promotion() {
     $idhp = get_datan('idhp');
+    
+    if($idhp == 0){
+        add_promotion();
+        return;
+    }
+    
     $date = get_data('date');
     $venue = get_data('ven');
     $topic = get_data('top');
@@ -134,8 +149,9 @@ function get_promotion() {
     $idhp = get_datan('idhp');
     $p = new health_promotion();
     $p->retrieve_promo_by_id_promo($idhp);
-    if ($p) {
-        $row = $p->fetch();
+    $row = $p->fetch();
+    if ($row) {
+//        $row = $p->fetch();
         echo "{";
         echo jsonn("result", 1);
         echo ',"promotion":';
@@ -207,16 +223,24 @@ function delete_promotion() {
 
     $idhp = get_datan('idhp');
     $p = new health_promotion();
-    $p->delete_promotion($idhp);
-    if (!$p) {
+    
+    // get what you are deleting first
+    $p->retrieve_promo_by_id_promo($idhp);
+    $row = $p->fetch();
+    
+    $deleted = $p->delete_promotion($idhp);
+    
+//    echo ($deleted);
+    if (!$deleted) {
         echo "{";
         echo jsonn("result", 0) . ",";
-        echo jsons("message", "error, Could not delete");
+        echo jsons("message", "Error: Could not delete");
         echo "}";
     } else {
         echo "{";
         echo jsonn("result", 3) . ",";
-        echo jsons("message", "Deleted");
+        echo jsons("message", "Deleted") . ",";
+        echo jsons("topic", $row['topic']);
         echo "}";
     }
 }

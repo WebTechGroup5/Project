@@ -137,7 +137,7 @@ class adb {
 	*returns last auto generated id 
 	*/
     function get_insert_id() {
-        return mysql_insert_id($this->link);
+        return mysql_insert_id();
     }
 	
 	
