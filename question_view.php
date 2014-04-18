@@ -7,7 +7,8 @@
 	<script src="gen.js"></script>
     
     <script>
-    
+    		var question_id;
+			
     		function syncAjax(u){
 				var obj=$.ajax(
 					{url:u,
@@ -19,7 +20,7 @@
 			}
 			
 			function popUp(){
-				$
+				
 				$("#divAdd").fadeIn(500);
 				
 			}
@@ -34,6 +35,8 @@
 				
 				$("#question_3").text(getQuestion($id));
 				$("#divAddAnswer").fadeIn(500);	
+				
+				question_id = $id;
 			}
             
             function getQuestion(qid){
@@ -64,6 +67,20 @@
 					showMsg(r.message);
 					
 				}
+			}
+			
+			
+			function saveAnswer($id){
+				var idcho = document.getElementById("idcho").value;
+				var sid = document.getElementById("sid").value;
+				var qid = question_id;
+				var answer = document.getElementById("answerArea").value;
+				
+				var u = "question_action.php?cmd=4&id="+qid+"&sid="+sid+"&idcho="+idcho+"&answer="+answer;
+				showMsg(u);
+				
+					
+				
 			}
 			
 			function showAnswers(qid){
@@ -258,13 +275,19 @@
                         <td id = "question_3">None</td>
 					</tr>
                     <tr>
-						<td class = "label">Answers:</td>
+						<td class = "label">Answer:</td>
                         <td id = "answer">
-                        	<textarea cols = 20 rows = 5 id = "answerArea"></textarea>
+                        	<textarea cols = 35 rows = 5 id = "answerArea"></textarea>
                         </td>
 					</tr>
+                     <tr>
+						<input type = "hidden" value = 0 id = "question_id">
+					</tr>
                     <tr>
-						
+						<input type = "hidden" value = 1 id = "idcho">
+					</tr>
+                    <tr>
+						<input type = "hidden" value = "null" id = "sid">
 					</tr>
                     <tr>
                     	<td><input type = "button" value = "Close" onClick="closeAnswer()"> </td>
@@ -306,9 +329,9 @@
 								echo "<td>".$row["qid"]."</td>";
 								echo "<td>".$row["question"]."</td>";
 								echo "<td>". $count."</td>";
-								echo "<td onclick = showAnswers($id)>->VIEW ANSWERS</a></td>";
+								echo "<td onclick = showAnswers($id)><a href>  VIEW ANSWERS  </a></td>";
 								
-								echo "<td onclick = answerAQuestion($id)><a href >ANSWER</a></td>";
+								echo "<td onclick = answerAQuestion($id)><a href >  ANSWER  </a></td>";
 								echo "</tr>";
 								$row = $questions_obj->fetch();
 							}

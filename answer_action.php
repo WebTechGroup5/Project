@@ -125,26 +125,31 @@
 			echo "]";
 		    echo  "}";
 			}
+		*/
 		
 		function add_answer(){
-									
-			if(!$var){
-				//return error message
-				echo '{"result":0,"message":"id not correct"}';
-			return;
-			}
+			$qid = get_datan("id");
+			$sid = get_datan("sid");
+			$idcho = get_datan("idcho");
+			$answer = get_data("answer");
 			
-			$qwerty= new answers();
-			if(!$qwerty->delete_answer($var)){
-			echo'{"result":0,"message":"unable to delete"}';
+			
+			$var = new answers();
+							
+		
+			
+			
+			
+			if(!$var->add_answer($qid, $sid, $idcho, $answer)){
+				echo'{"result":0,"message":"unable to add"}';
 			}
 			else{
-			echo '{"result":1,"message":"delete successful"}';
+				echo '{"result":1,"message":"adding successful"}';
 			
 			
 			}
 			
-		}*/
+		}
 			
 		function get_all_answers_str(){
 		$id=get_datan("id");

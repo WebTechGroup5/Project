@@ -10,10 +10,10 @@
 		  }
 	
 	
-		function add_answer($qid, $cid, $idcho, $answer){
+		function add_answer($qid, $sid, $idcho, $answer){
 	
-			$query = "insert into answers(qid, cid,idcho,answer) values 
-				('$qid', '$cid', '$idcho', '$answer')";
+			$query = "insert into answers(qid, sid, idcho, answer) values 
+				('$qid', '$sid', '$idcho', '$answer')";
 			print $query;
 			return $this->query($query);
 	
