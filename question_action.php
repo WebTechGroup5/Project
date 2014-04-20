@@ -44,6 +44,17 @@
 			save_question($result, $idcho, $question);
 			break;
 			
+		case 5:
+			//Search
+			$text = get_data("text");
+			search_question($text);
+			break;
+			
+		case 6:
+			//get answer count
+			$qid = get_datan("qid");
+			countA($qid);
+			break; 	
 			
 		default:
 			echo "{";
@@ -134,9 +145,9 @@
 		
 			
 		}
-		
+		}
 	
-	}
+	
 		
 		function save_question($cid, $idcho, $question){
 			$q = new questions();
@@ -158,6 +169,70 @@
 			}
 			
 		}
+		
+		function search_question($text){
+			$q = new questions();
+			$q->get_question_search($text);
+			
+			if($q){
+				$row = $q->fetch();
+				if ($row){
+					echo "{";
+					echo jsonn("result", 1).",";
+					echo '"question":';
+					echo "[";
+				}
+				while($row){
+				
+					echo "{";
+					echo jsonn("question_id", $row["qid"]).",";
+					echo jsonn("cid", $row["cid"]).",";
+					echo jsonn("cho_id", $row["idcho"]).",";		
+					echo jsons("question", $row["question"]);
+					
+					echo "}";
+					
+					$row = $q->fetch();
+					if($row){
+						echo ",";
+					}
+				}
+				echo "]}";
+				return;
+			}
+			
+			echo "{";
+				echo jsonn("result",0).",";
+				echo jsons ("message", "Error. Such a Question could not be found.");
+				echo "}";
+			
+		}
+		
+		function countA($qid){
+			$q = new questions();
+			
+			if($q){
+				echo "{";
+				echo jsonn("result",1).",";
+				echo jsonn ("count",$q->count_answers($qid));
+				echo "}";
+				
+			}
+			else {
+				echo "{";
+				echo jsonn("result",0).",";
+				echo jsons ("message", "Error.");
+				echo "}";
+				
+			}
+			
+			
+		}
+		
+		
+			
+	
+		
 	
 	
 	

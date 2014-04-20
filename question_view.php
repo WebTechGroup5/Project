@@ -25,6 +25,71 @@
 				
 			}
 			
+			function countAns(id){
+				var u = "question_action.php?cmd=6&qid="+id;
+				var r = syncAjax(u);
+				
+				
+				if(r.result==1){
+					return r.count;	
+				}
+				
+				alert(r.count);
+				
+			}
+			
+			function searchQ(){
+				$("#mainbody").empty();
+				var d = document.getElementById("txtSearch").value;
+				var u = "question_action.php?cmd=5&text="+d;
+				var r = syncAjax(u);
+				
+				if(r.result == 0){
+					showMsg(r.message);	
+				}
+				else
+				{
+					
+					$("#mainbody").empty();
+					
+					
+					var row_counter = 1;
+					
+					
+					for(var i = 0; i < r.question.length; i++){
+							var ctid= r.question[i].question_id;
+							
+							
+							if (row_counter % 2 == 0) {
+                                var style = " class='row1' ";
+                            } else {
+                                var style = " class='row2' ";
+							}
+							row_counter++;
+							$("#mainbody").append("<tr"+style+"><td>"+r.question[i].question_id+"</td><td>"+r.question[i].question+"</td><td>"+countAns(ctid)+"</td><td><span onclick = 'showAnswers($id)'><a href>  VIEW ANSWERS  </a></span></td><td><span onclick = 'answerAQuestion($id)'><a href >  ANSWER  </a></span></td></tr>");
+							
+							/*
+								$row_counter++;
+								$id = $row["qid"];
+								$count = $questions_obj2->count_answers($id);
+								echo "<tr $style>";
+								echo "<td>".$row["qid"]."</td>";
+								echo "<td>".$row["question"]."</td>";
+								echo "<td>". $count."</td>";
+								echo "<td onclick = showAnswers($id)><a href>  VIEW ANSWERS  </a></td>";
+								
+								echo "<td onclick = answerAQuestion($id)><a href >  ANSWER  </a></td>";
+								echo "</tr>";
+								$row = $questions_obj->fetch();
+							*/
+							}	
+							showMsg("Showing Results of Search:" + row_counter);
+				}
+				
+				
+				}
+			
+			
 			function answerAQuestion($id){
 				//find where the user clicked and store it in x and y
 				var y=event.clientY;
@@ -102,7 +167,7 @@
 				
 				//find where the user clicked and store it in x and y
 				var y=event.clientY;
-				var x=event.clientX/2;
+				var x=event.clientX;
 				//use x and y to set the location of the form
 				$("#divShowAnswers").css("top",y);
 				$("#divShowAnswers").css("left",x);
@@ -166,7 +231,7 @@
                         <span class="menuitem" >communities</span>
                         <span class="menuitem" >view map</span>
                         <input type="text" id="txtSearch">
-                        <span class="menuitem">search</span>		
+                        <span class="menuitem" onclick = "searchQ()">search</span>		
                     </div>
                     <div id="divStatus" class="status">
                         status message
@@ -312,8 +377,10 @@
                            
                         </tr>
                     </thead>
-                    <tbody>
-                    	<?php
+                    
+                    <?php
+                   echo "<tbody id = 'mainbody'>";
+                    		
 							$row_counter = 1;
 							while($row){
 								
@@ -329,15 +396,16 @@
 								echo "<td>".$row["qid"]."</td>";
 								echo "<td>".$row["question"]."</td>";
 								echo "<td>". $count."</td>";
-								echo "<td onclick = showAnswers($id)><a href>  VIEW ANSWERS  </a></td>";
+								echo "<td><span onclick = showAnswers($id)><a href>  VIEW ANSWERS  </a></span></td>";
 								
-								echo "<td onclick = answerAQuestion($id)><a href >  ANSWER  </a></td>";
+								echo "<td><span onclick = answerAQuestion($id)><a href >  ANSWER  </a></span></td>";
 								echo "</tr>";
 								$row = $questions_obj->fetch();
 							}
-						?>
+						
     	
-        
-
+        				
+					echo "</tbody>";
+					?>
 </body>
 </html>

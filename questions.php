@@ -78,6 +78,12 @@ class questions extends adb {
 		 $row = $this->fetch();
 		 return $row["c"];
 	}
+	
+	function get_question_search($text){
+		$query = "Select * from questions where question like '%".$text."%'";
+		
+		return $this->query($query);
+	}
 
 }
 
