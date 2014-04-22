@@ -10,19 +10,82 @@
             var spanVarPar;
 
             var globalAddObj;
-            
-            function search(){
-                var searchBut = $("#txtSearch").text();
-                alert(searchBut);
+
+            function search(num) {
+                cancel();
+                
+                if (num == 1) {
+                    var search = $("#txtSearch").val();
+                    
+                    if(search == ""){
+                        $("#divStatus").text("Ha Ha Ha, you did not search for anything");
+                        $("#divStatus").css({'color': 'yellow'});
+                        return;
+                    }
+                    $("#searchTable").empty();
+                    var u = "health_promotion_action.php?cmd=8&search=" + search;
+
+                    r = syncAjax(u);
+
+                    if (r.result == 0) {
+                        //show error message
+                        $("#divStatus").text("No Health Promotion Found");
+                        $("#divStatus").css({'color': 'yellow'});
+                        return;
+                    }
+                    
+                    $("#divStatus").text("Search results for: \"" + search + "\"");
+                    $("#divStatus").css({'color': 'yellow'});
+                    
+                    var tabl = $("#searchTable").closest("table");
+
+                    var newRow = "row2";
+
+//                header
+                    $(tabl).append("<tr class ='header'><td>#</td><td>Topic</td><td>Method</td><td>Date</td><td>Edit</td><td>Delete</td></tr>");
+
+                    var i = 0;
+                    while (i <= r.found_promotions.length) {
+                        $(tabl).append("<tr class ='" + newRow + "'><td>" + /*r.found_promotions[i].promotion_id */ (i + 1) + "</td/><td><a href=#>" + r.found_promotions[i].topic + "</a></td><td>" + r.found_promotions[i].method + "</td><td>" + r.found_promotions[i].date + "</td><td><span class='hotspot' onclick='edit(this," + r.found_promotions[i].promotion_id + ")'>edit<span></td><td><span class='hotspot2' onclick='del(this," + r.found_promotions[i].promotion_id + ")'>del<span></td></tr>");
+                        i++;
+                        if (newRow == "row1") {
+                            newRow = "row2";
+                        }
+                        else {
+                            newRow = "row1";
+                        }
+                    }
+                }
+                else
+                {
+                    var u = "health_promotion_action.php?cmd=8&search= ";
+
+                    $("#searchTable").empty();
+
+                    r = syncAjax(u);
+
+                    var tabl = $("#searchTable").closest("table");
+
+                    var newRow = "row2";
+
+//                header
+                    $(tabl).append("<tr class ='header'><td>#</td><td>Topic</td><td>Method</td><td>Date</td><td>Edit</td><td>Delete</td></tr>");
+
+                    var i = 0;
+                    while (i < r.found_promotions.length) {
+
+                        $(tabl).append("<tr class ='" + newRow + "'><td>" + /*r.found_promotions[i].promotion_id*/ (i + 1) + "</td/><td><a href=#>" + r.found_promotions[i].topic + "</a></td><td>" + r.found_promotions[i].method + "</td><td>" + r.found_promotions[i].date + "</td><td><span class='hotspot' onclick='edit(this," + r.found_promotions[i].promotion_id + ")'>edit<span></td><td><span class='hotspot2' onclick='del(this," + r.found_promotions[i].promotion_id + ")'>del<span></td></tr>");
+                        i++;
+                        if (newRow == "row1") {
+                            newRow = "row2";
+                        }
+                        else {
+                            newRow = "row1";
+                        }
+                    }
+                }
             }
 
-//            $(document).ready(function() { // can use "$(function() { " instead
-//
-//                alert($("#mainnav").find("div:first").text());
-//                var mainnavLocation = $("#mainnav").find("div:first").text();
-//                $("#mainnav").text(mainnavLocation);
-//
-//            });
 
             //makes a synchronous call to the page u and return the 
             //result as object
@@ -116,7 +179,7 @@
 
                 if (r.result == 4) { // signifies update
                     $("#divStatus").text("Health Promotion: \"" + vtop + "\" updated");
-//                     alert("update");
+                    $("#divStatus").css({'color': 'yellow'});
                     //change things in the span
                     var nameCol = $(spanVarPar).children("td").get(1);
                     $(nameCol).text("");
@@ -134,6 +197,7 @@
                 }
                 else if (r.result == 5) { // signifies add
                     $("#divStatus").text("Health Promotion: \"" + vtop + "\" added");
+                    $("#divStatus").css({'color': 'yellow'});
 //                    alert("added");
 //                    var row = spanVarPar;
 //                    var lastRow = $('#yourtableid tr:last').attr('id');
@@ -152,27 +216,11 @@
                         newRow = "row1";
                     }
 //                    alert(tabl.get(0).tagName);
-//                    = $(obj).closest("tr");
 //                    alert(lastRow.get(0).tagName);//.attr("id")
 
 //                    $(lastRow).append("<tr><td><a href=#>" + vtop + "</a></td><td>ff</td><td>ff</td><td>kl</td><td>ff</td></tr>");
-                    $(lastRow).after("<tr class ='" + newRow + "'><td>" + r.health_promotion.id + "</td/><td><a href=#>" + vtop + "</a></td><td>" + vmeth + "</td><td>" + vdat + "</td><td><span class='hotspot' onclick='edit(this," + r.health_promotion.id + ")'>edit<span></td><td><span class='hotspot' onclick='del(this," + r.health_promotion.id + ")'>del<span></td></tr>");
+                    $(lastRow).after("<tr class ='" + newRow + "'><td>" + /*r.health_promotion.id*/ +"</td/><td><a href=#>" + vtop + "</a></td><td>" + vmeth + "</td><td>" + vdat + "</td><td><span class='hotspot' onclick='edit(this," + r.health_promotion.id + ")'>edit<span></td><td><span class='hotspot' onclick='del(this," + r.health_promotion.id + ")'>del<span></td></tr>");
 
-
-//                    var idCol = $(spanVarPar).children("td").get(0);
-//                    
-//                    var topicCol = $(spanVarPar).children("td").get(1);
-//
-//                    var methodCol = $(spanVarPar).children("td").get(2);
-//
-//                    var dateCol = $(spanVarPar).children("td").get(3);
-//
-//                    var editCol = $(spanVarPar).children("td").get(4);
-//
-//                    var delCol = $(spanVarPar).children("td").get(5);
-//
-//                    $(nameCol).text("");
-//                    $(nameCol).append("<a href=#>" + vtop + "</a>");
                 }
                 else {
                     alert("didn't add nor update");
@@ -216,6 +264,7 @@
                 r = syncAjax(u);
                 cancel();
                 $("#divStatus").text("Health Promotion: \"" + r.topic + "\" deleted");
+                $("#divStatus").css({'color': 'yellow'});
             }
 
             function add(obj) {
@@ -254,7 +303,7 @@
                 <td id="mainnav">
                     <div class="menuitem">location</div>
                     <div class="menuitem">opd cases</div>
-                    <div class="menuitem">health promotion</div>
+                    <a href="health_promotion_list.php"><div class="menuitem">health promotion</div></a>
                     <div class="menuitem">nutrition</div>
                     <div class="menuitem">child welfare</div>
                     <div class="menuitem">family planning</div>
@@ -264,245 +313,241 @@
                         <span class="menuitem" >sub districts</span>
                         <span class="menuitem" >communities</span>
                         <span class="menuitem" >view map</span>
+                        <input type="text" id="txtSearch" >
                         <!------------------------added onclick="search()"---------------------------------------------------->
-                        <input type="text" id="txtSearch" onclick="search()">
-                        <span class="menuitem">search</span>		
+                        <span class="menuitem" onclick="search(1)">search</span>		
                     </div>
+
                     <div id="divStatus" class="status">
                         status message
                     </div>
                     <!---------------------------------------------------------------------------->
-                    <div id="divPageMenu">
-                        <a><span class="menuitem" >questions</span></a>
-                        <a><span class="menuitem" >answers</span></a>
-                    </div>
-                    
-                    Health Promotions
-                    <button class="field" onclick="add(this)" style="float: right;">ADD</button>
-                    <table class="reportTable" width="100%" >
-<!--                        <tr class="header">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="label"><input type="button" value="ADD" onclick="add()" ></td>-->
-            </tr>
-            <tr class="header" >
-                <td>ID</td>
-                <td>Topic</td>
-                <td>Method</td>
-                <td>Date</td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </tr>
-            <?php
-            include("./health_promotion.php");
-            $obj = new health_promotion();
-            if (!$obj->retrieveAll_promotion()) {
-                echo "error";
-                exit();
-            }
 
-            $row = $obj->fetch();
-            $row_counter = 0;
+                    <div id="divPageMenuSub">
+                        <a href="question_view.php"><span class="menuitem" >questions</span></a>
+                        <a href="answers.php"><span class="menuitem" >answers</span></a>
+                        <a><span class="menuitem" onclick = "search(0)">refresh</span></a>
+                    </div>
+
+                    <span style="font-weight: bold; font-size: large">Health Promotions</span>
+                    <button class="field" onclick="add(this)" style="float: right;">ADD</button>
+                    <table class="reportTable" width="100%" id="searchTable">
+                        <tr class="header" >
+                            <td>#</td>
+                            <td>Topic</td>
+                            <td>Method</td>
+                            <td>Date</td>
+                            <td>Edit</td>
+                            <td>Delete</td>
+                        </tr>
+                        <?php
+                        include("./health_promotion.php");
+                        $obj = new health_promotion();
+                        if (!$obj->retrieveAll_promotion()) {
+                            echo "error";
+                            exit();
+                        }
+
+                        $row = $obj->fetch();
+                        $row_counter = 1;
 //            -------------------to get cho name-----------------------
 //            $health_promo_obj2->get_cho_by_promo($row['idhealth_promotion']);
 //            $cho_name = $health_promo_obj2->fetch();
 //
 //            -------------------to get cho name-----------------------
-            while ($row) {
+                        while ($row) {
+                            if ($row_counter % 2 == 0) {
+                                $style = " class='row1' ";
+                            } else {
+                                $style = " class='row2' ";
+                            }
+                            $id = $row['idhealth_promotion'];
+                            echo "<tr $style >";
+//                            echo "<td>$id</td>";
+                            echo "<td>$row_counter</td>";
+                            echo "<td><a href='health_promotion_detail.php?id=$id'>$row[topic]</a></td>";
+                            echo "<td>$row[method]</td>";
+                            echo "<td>$row[date]</td>";
+                            echo "<td><span class='hotspot' onclick='edit(this,$id)'>edit<span></td>";
+                            echo "<td><span class='hotspot2' onclick='del(this,$id)'>del<span></td>";
+                            echo "</tr>";
+                            $row = $obj->fetch();
+                            $row_counter++;
+                        }
+                        ?>
+                    </table>
 
-                if ($row_counter % 2 == 0) {
-                    $style = " class='row1' ";
-                } else {
-                    $style = " class='row2' ";
-                }
-                $id = $row['idhealth_promotion'];
-                echo "<tr $style >";
-                echo "<td>$id</td>";
-                echo "<td><a href='health_promotion_detail.php?id=$id'>$row[topic]</a></td>";
-                echo "<td>$row[method]</td>";
-                echo "<td>$row[date]</td>";
-                echo "<td><span class='hotspot' onclick='edit(this,$id)'>edit<span></td>";
-                echo "<td><span class='hotspot' onclick='del(this,$id)'>del<span></td>";
-                echo "</tr>";
-                $row = $obj->fetch();
-                $row_counter++;
-            }
-            ?>
+                </td>
+            </tr>
         </table>
-    </div>
-</td>
-</tr>
-</table>
 
-<div id="divEdit" class="popupForm">
-    <table class="tableForm" >
-        <tr>
-            <td class="label">Topic: </td>
-            <td class="field"><input type="text" value="" id="topic" ></td>
-            <td class="label">Method:</td> 
-            <td class="field"><input type="text" value="" id="method" ></td>
-        </tr>
-        <tr>
-            <td class="label">Venue :</td>
-            <td class="field"><input type="text" value="" id="venue" ></td>
-            <td class="label">Date :</td>
-            <td class="field"><input type="date" value="" id="date" ></td>
-        </tr>
-        <tr>
-            <td class="label">Target Audience :</td>
-            <td class="field"><input type="text" value="" id="target_audience" ></td>
-            <td class="label">Number Of Audience :</td>
-            <td class="field"><input type="text" value="" id="number_of_audience" ></td>
-        </tr>
-        <tr>
-            <td class="label">Remarks :</td>
-            <td class="field"><textarea type="textarea" value="" id="remarks" ></textarea></td>
-            <td class="label">Month :</td>
-            <td class="field">
-                <!--<input type="" value="" id="month" >-->
-                <select id="month" name="inputMONTH" <?php
+        <div id="divEdit" class="popupForm">
+            <table class="tableForm" >
+                <tr>
+                    <td class="label">Topic: </td>
+                    <td class="field"><input type="text" value="" id="topic" ></td>
+                    <td class="label">Method:</td> 
+                    <td class="field"><input type="text" value="" id="method" ></td>
+                </tr>
+                <tr>
+                    <td class="label">Venue :</td>
+                    <td class="field"><input type="text" value="" id="venue" ></td>
+                    <td class="label">Date :</td>
+                    <td class="field"><input type="date" value="" id="date" ></td>
+                </tr>
+                <tr>
+                    <td class="label">Target Audience :</td>
+                    <td class="field"><input type="text" value="" id="target_audience" ></td>
+                    <td class="label">Number Of Audience :</td>
+                    <td class="field"><input type="text" value="" id="number_of_audience" ></td>
+                </tr>
+                <tr>
+                    <td class="label">Remarks :</td>
+                    <td class="field"><textarea type="textarea" value="" id="remarks" ></textarea></td>
+                    <td class="label">Month :</td>
+                    <td class="field">
+                        <!--<input type="" value="" id="month" >-->
+                        <select id="month" name="inputMONTH" <?php
 //                if (isset($_REQUEST['inputMONTH'])) {
 //                    $selection = $_REQUEST['inputMONTH'];
 //                }
-                ?>>
-                    <option value="january" <?php
-                    // if ($selection == 'january') {
+                        ?>>
+                            <option value="january" <?php
+                            // if ($selection == 'january') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>January</option>
-                    <option value="february"<?php
-                    // if ($selection == 'february') {
+                            ?>>January</option>
+                            <option value="february"<?php
+                            // if ($selection == 'february') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>February</option>
-                    <option value="march"<?php
-                    // if ($selection == 'march') {
+                            ?>>February</option>
+                            <option value="march"<?php
+                            // if ($selection == 'march') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>March</option>
-                    <option value="april"<?php
-                    // if ($selection == 'april') {
+                            ?>>March</option>
+                            <option value="april"<?php
+                            // if ($selection == 'april') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>April</option>
-                    <option value="may"<?php
-                    // if ($selection == 'may') {
+                            ?>>April</option>
+                            <option value="may"<?php
+                            // if ($selection == 'may') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>May</option>
-                    <option value="june"<?php
-                    // if ($selection == 'june') {
+                            ?>>May</option>
+                            <option value="june"<?php
+                            // if ($selection == 'june') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>June</option>
-                    <option value="july"<?php
-                    // if ($selection == 'july') {
+                            ?>>June</option>
+                            <option value="july"<?php
+                            // if ($selection == 'july') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>July</option>
-                    <option value="august"<?php
-                    // if ($selection == 'august') {
+                            ?>>July</option>
+                            <option value="august"<?php
+                            // if ($selection == 'august') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>August</option>
-                    <option value="september"<?php
-                    // if ($selection == 'september') {
+                            ?>>August</option>
+                            <option value="september"<?php
+                            // if ($selection == 'september') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>September</option>
-                    <option value="october"<?php
-                    // if ($selection == 'october') {
+                            ?>>September</option>
+                            <option value="october"<?php
+                            // if ($selection == 'october') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>October</option>
-                    <option value="november"<?php
-                    // if ($selection == 'november') {
+                            ?>>October</option>
+                            <option value="november"<?php
+                            // if ($selection == 'november') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>November</option>
-                    <option value="december"<?php
-                    // if ($selection == 'december') {
+                            ?>>November</option>
+                            <option value="december"<?php
+                            // if ($selection == 'december') {
 //                            print "selected='selected'";
 //                        } 
-                    ?>>December</option>
-                </select></td>
-        </tr>
-        <tr>
-            <td class="label">Latitude :</td>
-            <td class="field"><input type="text" value="" id="latitude" ></td>
-            <td class="label">Longitude :</td>
-            <td class="field"><input type="text" value="" id="longitude" ></td>
-        </tr>
-        <tr>
-            <td class="label">IDCHO :</td>
-            <td class="field">
-                <select id="idcho" name="inputIDCHO" <?php
+                            ?>>December</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td class="label">Latitude :</td>
+                    <td class="field"><input type="text" value="" id="latitude" ></td>
+                    <td class="label">Longitude :</td>
+                    <td class="field"><input type="text" value="" id="longitude" ></td>
+                </tr>
+                <tr>
+                    <td class="label">IDCHO :</td>
+                    <td class="field">
+                        <select id="idcho" name="inputIDCHO" <?php
 //                                                            if (isset($_REQUEST['inputIDCHO'])) {
 //                                                                print "value=" . "'" . $_REQUEST['inputIDCHO'] . "'";
 //                                                            }
 //                                                            
-                ?>>
-                    <option>Select a CHO</option>
-                    <?php
-                    $health_promo2 = new health_promotion();              //  the constructor should be the name of the class
-                    $health_promo2->retrieveAll_idcho();
-                    $cho = $health_promo2->fetch();
-                    while ($cho) {
-                        echo "<option value =" . $cho["idcho"] . ">" . $cho["cho_name"] . "</option> ";
-                        $cho = $health_promo2->fetch();
-                    }
-                    ?>
-                </select>
-            </td>
-            <td class="label">Subdistrict :</td>
-            <td class="field"><select id="subdistrict" name="inputSUBDISTRICT_ID" <?php ?>>
-                    <option>Select a Sub District</option>
-                    <?php
-                    $cho = new health_promotion();
-                    $subdistricts = null;
-                    if (!$cho->retrieveAll_subdistricts()) {
-                        print "error: class err: " . mysql_error();
-                    } else {
-                        $subdistricts = $cho->fetch();
-                    }
+                        ?>>
+                            <option>Select a CHO</option>
+                            <?php
+                            $health_promo2 = new health_promotion();              //  the constructor should be the name of the class
+                            $health_promo2->retrieveAll_idcho();
+                            $cho = $health_promo2->fetch();
+                            while ($cho) {
+                                echo "<option value =" . $cho["idcho"] . ">" . $cho["cho_name"] . "</option> ";
+                                $cho = $health_promo2->fetch();
+                            }
+                            ?>
+                        </select>
+                    </td>
+                    <td class="label">Subdistrict :</td>
+                    <td class="field"><select id="subdistrict" name="inputSUBDISTRICT_ID" <?php ?>>
+                            <option>Select a Sub District</option>
+                            <?php
+                            $health = new health_promotion();
+                            $subdistricts = null;
+                            if (!$health->retrieveAll_subdistricts()) {
+                                print "error: class err: " . mysql_error();
+                            } else {
+                                $subdistricts = $health->fetch();
+                            }
 
-                    while ($subdistricts) {
-                        echo "<option value = " . $subdistricts["subdistrict_id"] . ">" . $subdistricts["subdistrict_name"] . "</option> ";
-                        $subdistricts = $cho->fetch();
-                    }
-                    ?>
-                </select>
+                            while ($subdistricts) {
+                                echo "<option value = " . $subdistricts["subdistrict_id"] . ">" . $subdistricts["subdistrict_name"] . "</option> ";
+                                $subdistricts = $health->fetch();
+                            }
+                            ?>
+                        </select>
 
-            </td>
-        </tr>
-        <tr>
-            <td class="label">Image :</td>
-            <td class="field"><input type="text" value="" id="image" ></td>
-            <td class="label"></td>
-            <td class="label"></td
-        </tr>
-        <tr>
-            <td class="label"></td>
-            <td class="field"><input type="button" value="save" onclick="save()" ></td>
-            <td class="label"></td>
-            <td class="field"><input type="button" value="cancel" onclick="cancel()" ></td>
-        </tr>
-    </table>
-</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Image :</td>
+                    <td class="field"><input type="text" value="" id="image" ></td>
+                    <td class="label"></td>
+                    <td class="label"></td
+                </tr>
+                <tr>
+                    <td class="label"></td>
+                    <td class="field"><input type="button" value="save" onclick="save()" ></td>
+                    <td class="label"></td>
+                    <td class="field"><input type="button" value="cancel" onclick="cancel()" ></td>
+                </tr>
+            </table>
+        </div>
 
-<div id="divDel" class="popupForm">
-    <table class="tableForm" >
-        <tr>
-            <td>Are you sure you want to delete?</td>
-        </tr>
-        <tr>
-            <td class="field"><input type="button" value="YES" onclick="rem()" ></td>
-            <td class="field"><input type="button" value="NO" onclick="cancel()" ></td>
-        </tr>
-    </table>
-</div>
-</body>
+        <div id="divDel" class="popupForm">
+            <table class="tableForm" >
+                <tr>
+                    <td>Are you sure you want to delete?</td>
+                </tr>
+                <tr>
+                    <td class="field"><input type="button" value="YES" onclick="rem()" ></td>
+                    <td class="field"><input type="button" value="NO" onclick="cancel()" ></td>
+                </tr>
+            </table>
+        </div>
+
+    </body>
 </html>	

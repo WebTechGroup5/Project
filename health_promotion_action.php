@@ -45,6 +45,12 @@ switch ($cmd) {
         // get idcho from health promotion
         get_cho_by_promo_json();
         break;
+    
+    
+    case 8;
+        // search by method, date and topic
+        search_by_method_date_topic();
+        break;
 
     default:
         echo "{";
@@ -52,6 +58,56 @@ switch ($cmd) {
         echo ",";
         echo jsons("message", "not a recognised command");
         echo "}";
+}
+
+function search_by_method_date_topic(){
+//    $idhp = get_datan('idhp');
+    $search = get_data('search');
+    
+    $p = new health_promotion();
+    $p->search_by_method_date_topic($search);
+    $row = $p->fetch();
+    if (!$row) {
+        echo "{";
+        echo jsonn("result", 0) . ",";
+        echo jsons("message", "No health promo found");
+        echo "}";
+        return;
+    }
+       
+
+        echo "{";
+        echo jsonn("result", 8);
+        echo ',"found_promotions":';
+        echo "[";
+
+        while ($row) {
+            echo "{";
+            echo jsonn("promotion_id", $row["idhealth_promotion"]) . ",";
+            echo jsons("date", $row["date"]) . ",";
+            echo jsons("venue", $row["venue"]) . ",";
+            echo jsons("topic", $row["topic"]) . ",";
+            echo jsons("method", $row["method"]) . ",";
+            echo jsons("target_audience", $row["target_audience"]) . ",";
+            echo jsonn("number_of_audience", $row["number_of_audience"]) . ",";
+            echo jsons("remarks", $row["remarks"]) . ",";
+            echo jsons("month", $row["month"]) . ",";
+            echo jsons("topic", $row["topic"]) . ",";
+            echo jsonn("latitude", $row["latitude"]) . ",";
+            echo jsonn("longitude", $row["longitude"]) . ",";
+            echo jsons("image", $row["image"]) . ",";
+            echo jsonn("cho_id", $row["idcho"]) . ",";
+            echo jsonn("subdistrict_id", $row["subdistrict_id"]);
+            echo "}";
+
+            $row = $p->fetch();
+            if ($row) {
+                echo ",";
+            }
+        }
+        echo "]}";
+    
+   
 }
 
 function get_cho_by_promo_json(){
@@ -161,7 +217,7 @@ function get_promotion() {
         echo jsons("venue", $row["venue"]) . ",";
         echo jsons("topic", $row["topic"]) . ",";
         echo jsons("method", $row["method"]) . ",";
-        echo jsonn("target_audience", $row["target_audience"]) . ",";
+        echo jsons("target_audience", $row["target_audience"]) . ",";
         echo jsonn("number_of_audience", $row["number_of_audience"]) . ",";
         echo jsons("remarks", $row["remarks"]) . ",";
         echo jsons("month", $row["month"]) . ",";
@@ -197,7 +253,7 @@ function get_promotion_by_date_venue() {
         echo jsons("venue", $row["venue"]) . ",";
         echo jsons("topic", $row["topic"]) . ",";
         echo jsons("method", $row["method"]) . ",";
-        echo jsonn("target_audience", $row["target_audience"]) . ",";
+        echo jsons("target_audience", $row["target_audience"]) . ",";
         echo jsonn("number_of_audience", $row["number_of_audience"]) . ",";
         echo jsons("remarks", $row["remarks"]) . ",";
         echo jsons("month", $row["month"]) . ",";
@@ -264,7 +320,7 @@ function get_all_promotions() {
             echo jsons("venue", $row["venue"]) . ",";
             echo jsons("topic", $row["topic"]) . ",";
             echo jsons("method", $row["method"]) . ",";
-            echo jsonn("target_audience", $row["target_audience"]) . ",";
+            echo jsons("target_audience", $row["target_audience"]) . ",";
             echo jsonn("number_of_audience", $row["number_of_audience"]) . ",";
             echo jsons("remarks", $row["remarks"]) . ",";
             echo jsons("month", $row["month"]) . ",";

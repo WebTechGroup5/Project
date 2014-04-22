@@ -37,6 +37,10 @@ body
     padding-top: 5em;
 }
 
+#mainnav a{
+    text-decoration: none;
+}
+
 /* sidebar*/
 #mainnav .menuitem{
     font-family: Lithos Pro Regular;
@@ -55,7 +59,7 @@ body
 }
 
 #mainnav .menuitem:hover{
-    /*text-decoration:underline;*/
+    text-decoration:none;
     /*width: 2in;*/
     background: url("images/blue.gif") no-repeat;
     cursor:hand;
@@ -70,6 +74,21 @@ body
     background-color: #34CC67; 
     border-color: white;
     border-radius: 99px 99px 0px 0px;
+}
+
+#divPageMenuSub{
+    background-color: #34CC67; 
+    border-color: white;
+    border-radius: 0px 0px 4px 4px;
+}
+
+#divPageMenuSub .menuitem:hover{
+    background: url("images/blue.gif") no-repeat ;
+    /*background-size: 100px 70px;*/
+    text-align: center;
+    cursor:hand;
+    padding: 0.4em 0 .6em ;
+    margin: 0 0.5em 0 2em ;
 }
 
 #content .menuitem{
@@ -108,7 +127,13 @@ body
 
 .hotspot{
     text-decoration:underline;
-    color:blue;
+    color:blueviolet;
+    cursor:pointer
+}
+
+.hotspot2{
+    text-decoration:underline;
+    color:red;
     cursor:pointer
 }
 

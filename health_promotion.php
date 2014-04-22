@@ -66,6 +66,17 @@ class health_promotion extends adb {
                     FROM health_Promotion";
         return $this->query($query);
     }
+    
+    function search_by_method_date_topic($search){
+        $query = "SELECT *
+                    FROM health_promotion
+                    where method like '%$search%' or 
+                    method like '%$search%' or 
+                    date like '%$search%' or
+                    idhealth_promotion like '%$search%'" ;
+//        print $query;
+        return $this->query($query);
+    }
 
     function filterBy_promotion($date, $month, $venue, $topic, $method, $target_audience, $number_of_audience, $remarks, $idcho, $subdistrict_id) {
         $query = "SELECT *
@@ -80,7 +91,6 @@ class health_promotion extends adb {
 				AND remarks like %'remarks'%
 				AND idcho like %'idcho'% 
 				AND subdistrict_id like %'$subdistrict_id'%
-				
 				 ";
         return $this->query($query);
     }
