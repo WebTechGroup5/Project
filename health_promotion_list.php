@@ -219,7 +219,7 @@
 //                    alert(lastRow.get(0).tagName);//.attr("id")
 
 //                    $(lastRow).append("<tr><td><a href=#>" + vtop + "</a></td><td>ff</td><td>ff</td><td>kl</td><td>ff</td></tr>");
-                    $(lastRow).after("<tr class ='" + newRow + "'><td>" + /*r.health_promotion.id*/ +"</td/><td><a href=#>" + vtop + "</a></td><td>" + vmeth + "</td><td>" + vdat + "</td><td><span class='hotspot' onclick='edit(this," + r.health_promotion.id + ")'>edit<span></td><td><span class='hotspot' onclick='del(this," + r.health_promotion.id + ")'>del<span></td></tr>");
+                    $(lastRow).after("<tr class ='" + newRow + "'><td>" + /*r.health_promotion.id*/"figure out logic" +"</td/><td><a href=#>" + vtop + "</a></td><td>" + vmeth + "</td><td>" + vdat + "</td><td><span class='hotspot' onclick='edit(this," + r.health_promotion.id + ")'>edit<span></td><td><span class='hotspot' onclick='del(this," + r.health_promotion.id + ")'>del<span></td></tr>");
 
                 }
                 else {
@@ -322,10 +322,9 @@
                         status message
                     </div>
                     <!---------------------------------------------------------------------------->
-
                     <div id="divPageMenuSub">
                         <a href="question_view.php"><span class="menuitem" >questions</span></a>
-                        <a href="answers.php"><span class="menuitem" >answers</span></a>
+                        <a href="#"><span class="menuitem" >answers</span></a>
                         <a><span class="menuitem" onclick = "search(0)">refresh</span></a>
                     </div>
 
@@ -376,7 +375,6 @@
                         }
                         ?>
                     </table>
-
                 </td>
             </tr>
         </table>
@@ -399,7 +397,7 @@
                     <td class="label">Target Audience :</td>
                     <td class="field"><input type="text" value="" id="target_audience" ></td>
                     <td class="label">Number Of Audience :</td>
-                    <td class="field"><input type="text" value="" id="number_of_audience" ></td>
+                    <td class="field"><input type="number" value="" id="number_of_audience" ></td>
                 </tr>
                 <tr>
                     <td class="label">Remarks :</td>
@@ -476,9 +474,9 @@
                 </tr>
                 <tr>
                     <td class="label">Latitude :</td>
-                    <td class="field"><input type="text" value="" id="latitude" ></td>
+                    <td class="field"><input type="number" value="" id="latitude" ></td>
                     <td class="label">Longitude :</td>
-                    <td class="field"><input type="text" value="" id="longitude" ></td>
+                    <td class="field"><input type="number" value="" id="longitude" ></td>
                 </tr>
                 <tr>
                     <td class="label">IDCHO :</td>

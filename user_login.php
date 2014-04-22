@@ -36,7 +36,7 @@
 	<title>Login</title>
 </head>
 <body>
-		<form action="login.php" method="POST">
+		<form action="user_login.php" method="POST">
 		<table align="center" width="80%">
 			<tr>
 				<td width="30%"></td>
@@ -76,8 +76,14 @@
 		//	return true
 		//else 
 		//	return false
-		return true;
+		include_once("login.php");
+		$var=new login("username", "password");
+		$row= $var->loginAs($user, $pass);
+		
+		return $row;
+		
 	}
+	
 	
 	function loadUserProfile($username){
 		//load username and other informaiton into the session 
