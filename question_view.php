@@ -1,7 +1,5 @@
 <html>
     <head>
-<<<<<<< HEAD
-<<<<<<< HEAD
     
     
     <link rel="stylesheet" href="style.css">
@@ -219,423 +217,6 @@
     
     </script>
     
-=======
-
-
-        <link rel="stylesheet" href="style.css">
-        <script src="jquery-1.11.0.js"></script>
-        <script src="gen.js"></script>
-
-        <script>
-            var question_id;
-
-            function syncAjax(u) {
-                var obj = $.ajax(
-                        {url: u,
-                            async: false
-                        }
-                );
-                return $.parseJSON(obj.responseText);
-
-            }
-
-            function popUp() {
-
-                $("#divAdd").fadeIn(500);
-
-            }
-
-            function countAns(id) {
-                var u = "question_action.php?cmd=6&qid=" + id;
-                var r = syncAjax(u);
-
-
-                if (r.result == 1) {
-                    return r.count;
-                }
-
-                alert(r.count);
-
-            }
-
-            function searchQ() {
-                $("#mainbody").empty();
-                var d = document.getElementById("txtSearch").value;
-                var u = "question_action.php?cmd=5&text=" + d;
-                var r = syncAjax(u);
-
-                if (r.result == 0) {
-                    showMsg(r.message);
-                }
-                else
-                {
-
-                    $("#mainbody").empty();
-
-
-                    var row_counter = 1;
-
-
-                    for (var i = 0; i < r.question.length; i++) {
-                        var ctid = r.question[i].question_id;
-
-
-                        if (row_counter % 2 == 0) {
-                            var style = " class='row1' ";
-                        } else {
-                            var style = " class='row2' ";
-                        }
-                        row_counter++;
-                        $("#mainbody").append("<tr" + style + "><td>" + r.question[i].question_id + "</td><td>" + r.question[i].question + "</td><td>" + countAns(ctid) + "</td><td><span onclick = 'showAnswers($id)'><a href>  VIEW ANSWERS  </a></span></td><td><span onclick = 'answerAQuestion($id)'><a href >  ANSWER  </a></span></td></tr>");
-
-                        /*
-                         $row_counter++;
-                         $id = $row["qid"];
-                         $count = $questions_obj2->count_answers($id);
-                         echo "<tr $style>";
-                         echo "<td>".$row["qid"]."</td>";
-                         echo "<td>".$row["question"]."</td>";
-                         echo "<td>". $count."</td>";
-                         echo "<td onclick = showAnswers($id)><a href>  VIEW ANSWERS  </a></td>";
-                         
-                         echo "<td onclick = answerAQuestion($id)><a href >  ANSWER  </a></td>";
-                         echo "</tr>";
-                         $row = $questions_obj->fetch();
-                         */
-                    }
-                    showMsg("Showing Results of Search:" + row_counter);
-                }
-
-
-            }
-
-
-            function answerAQuestion($id) {
-                //find where the user clicked and store it in x and y
-                var y = event.clientY;
-                var x = event.clientX;
-                //use x and y to set the location of the form
-                $("#divAddAnswer").css("top", y);
-                $("#divAddAnswer").css("left", x);
-
-                $("#question_3").text(getQuestion($id));
-                $("#divAddAnswer").fadeIn(500);
-
-                question_id = $id;
-            }
-
-            function getQuestion(qid) {
-                u = "question_action.php?cmd=1&id=" + qid;
-                var r = syncAjax(u);
-                showMsg(r.promotion.question);
-                if (r.result == 1) {
-                    return r.promotion.question;
-                }
-                return "Question not found..";
-            }
-
-            function saveAddQuestion() {
-                var cat = document.getElementById("question_category").value;
-                var qu = document.getElementById("question").value;
-                var idcho = document.getElementById("idcho").value;
-                var u = "question_action.php?cmd=4&cid=" + cat + "&question=" + qu + "&idcho=" + idcho + "";
-                showMsg(u);
-
-                var r = syncAjax(u);
-
-                if (r.result == 1) {
-                    closeAdd();
-                    showMsg(r.message);
-
-                }
-                else {
-                    showMsg(r.message);
-
-                }
-            }
-
-
-            function saveAnswer($id) {
-                var idcho = document.getElementById("idcho").value;
-                var sid = document.getElementById("sid").value;
-                var qid = question_id;
-                var answer = document.getElementById("answerArea").value;
-
-                var u = "answer_action.php?cmd=4&id=" + qid + "&answer=" + answer;
-                showMsg(u);
-
-                $("#divAddAnswer").fadeOut(500);
-
-
-                var q = syncAjax(u);
-
-                showMsg(q.message);
-
-
-
-            }
-
-
-
-
-            function showAnswers(qid) {
-                //Get answers from db
-
-                //Get question from db
-                $("#question_2").text(getQuestion(qid));
-
-                //Get answers from db
-                var u = "answer_action.php?cmd=5&id=" + qid;
-                var r = syncAjax(u);
-
-                //Putting answers in display
-                $("#answerlist").empty();
-                for (var i = 0; i < r.answers.length; i++) {
-                    $("#answerlist").append("<li>" + r.answers[i].answer + " </li>");
-                }
-
-
-                //find where the user clicked and store it in x and y
-                var y = event.clientY;
-                var x = event.clientX;
-                //use x and y to set the location of the form
-                $("#divShowAnswers").css("top", y);
-                $("#divShowAnswers").css("left", x);
-
-                //Show form
-                $("#divShowAnswers").fadeIn(500);
-
-
-            }
-=======
-
-
-        <link rel="stylesheet" href="style.css">
-        <script src="jquery-1.11.0.js"></script>
-        <script src="gen.js"></script>
-
-        <script>
-            var question_id;
-
-            function syncAjax(u) {
-                var obj = $.ajax(
-                        {url: u,
-                            async: false
-                        }
-                );
-                return $.parseJSON(obj.responseText);
-
-            }
-
-            function popUp() {
-
-                $("#divAdd").fadeIn(500);
-
-            }
-
-            function countAns(id) {
-                var u = "question_action.php?cmd=6&qid=" + id;
-                var r = syncAjax(u);
-
-
-                if (r.result == 1) {
-                    return r.count;
-                }
-
-                alert(r.count);
-
-            }
-
-            function searchQ() {
-                $("#mainbody").empty();
-                var d = document.getElementById("txtSearch").value;
-                var u = "question_action.php?cmd=5&text=" + d;
-                var r = syncAjax(u);
-
-                if (r.result == 0) {
-                    showMsg(r.message);
-                }
-                else
-                {
-
-                    $("#mainbody").empty();
-
-
-                    var row_counter = 1;
-
-
-                    for (var i = 0; i < r.question.length; i++) {
-                        var ctid = r.question[i].question_id;
-
-
-                        if (row_counter % 2 == 0) {
-                            var style = " class='row1' ";
-                        } else {
-                            var style = " class='row2' ";
-                        }
-                        row_counter++;
-                        $("#mainbody").append("<tr" + style + "><td>" + r.question[i].question_id + "</td><td>" + r.question[i].question + "</td><td>" + countAns(ctid) + "</td><td><span onclick = 'showAnswers($id)'><a href>  VIEW ANSWERS  </a></span></td><td><span onclick = 'answerAQuestion($id)'><a href >  ANSWER  </a></span></td></tr>");
-
-                        /*
-                         $row_counter++;
-                         $id = $row["qid"];
-                         $count = $questions_obj2->count_answers($id);
-                         echo "<tr $style>";
-                         echo "<td>".$row["qid"]."</td>";
-                         echo "<td>".$row["question"]."</td>";
-                         echo "<td>". $count."</td>";
-                         echo "<td onclick = showAnswers($id)><a href>  VIEW ANSWERS  </a></td>";
-                         
-                         echo "<td onclick = answerAQuestion($id)><a href >  ANSWER  </a></td>";
-                         echo "</tr>";
-                         $row = $questions_obj->fetch();
-                         */
-                    }
-                    showMsg("Showing Results of Search:" + row_counter);
-                }
-
-
-            }
-
-
-            function answerAQuestion($id) {
-                //find where the user clicked and store it in x and y
-                var y = event.clientY;
-                var x = event.clientX;
-                //use x and y to set the location of the form
-                $("#divAddAnswer").css("top", y);
-                $("#divAddAnswer").css("left", x);
-
-                $("#question_3").text(getQuestion($id));
-                $("#divAddAnswer").fadeIn(500);
-
-                question_id = $id;
-            }
-
-            function getQuestion(qid) {
-                u = "question_action.php?cmd=1&id=" + qid;
-                var r = syncAjax(u);
-                showMsg(r.promotion.question);
-                if (r.result == 1) {
-                    return r.promotion.question;
-                }
-                return "Question not found..";
-            }
-
-            function saveAddQuestion() {
-                var cat = document.getElementById("question_category").value;
-                var qu = document.getElementById("question").value;
-                var idcho = document.getElementById("idcho").value;
-                var u = "question_action.php?cmd=4&cid=" + cat + "&question=" + qu + "&idcho=" + idcho + "";
-                showMsg(u);
-
-                var r = syncAjax(u);
-
-                if (r.result == 1) {
-                    closeAdd();
-                    showMsg(r.message);
-
-                }
-                else {
-                    showMsg(r.message);
-
-                }
-            }
-
-
-            function saveAnswer($id) {
-                var idcho = document.getElementById("idcho").value;
-                var sid = document.getElementById("sid").value;
-                var qid = question_id;
-                var answer = document.getElementById("answerArea").value;
-
-                var u = "answer_action.php?cmd=4&id=" + qid + "&answer=" + answer;
-                showMsg(u);
-
-                $("#divAddAnswer").fadeOut(500);
-
-
-                var q = syncAjax(u);
-
-                showMsg(q.message);
-
-
-
-            }
-
-
-
-
-            function showAnswers(qid) {
-                //Get answers from db
-
-                //Get question from db
-                $("#question_2").text(getQuestion(qid));
-
-                //Get answers from db
-                var u = "answer_action.php?cmd=5&id=" + qid;
-                var r = syncAjax(u);
-
-                //Putting answers in display
-                $("#answerlist").empty();
-                for (var i = 0; i < r.answers.length; i++) {
-                    $("#answerlist").append("<li>" + r.answers[i].answer + " </li>");
-                }
-
-
-                //find where the user clicked and store it in x and y
-                var y = event.clientY;
-                var x = event.clientX;
-                //use x and y to set the location of the form
-                $("#divShowAnswers").css("top", y);
-                $("#divShowAnswers").css("left", x);
-
-                //Show form
-                $("#divShowAnswers").fadeIn(500);
-
-
-            }
->>>>>>> 54acd04a17f217f66d93b6585a6dd2ce656b52ab
-
-
-            function closeAddQuestion() {
-                $("#divAdd").fadeOut(250);
-                $("#divAddAnswer").fadeOut(250);
-                $("#divShowAnswers").fadeOut(250);
-                showMsg("Cancelled");
-            }
-
-            function closeAnswer() {
-                $("#divAdd").fadeOut(250);
-                $("#divAddAnswer").fadeOut(250);
-                $("#divShowAnswers").fadeOut(250);
-                showMsg("Answer Pop up Cancelled");
-
-            }
-
-            function closeAnswers() {
-                $("#divAdd").fadeOut(250);
-                $("#divAddAnswer").fadeOut(250);
-                $("#divShowAnswers").fadeOut(250);
-                showMsg("Answer Pop up Cancelled");
-
-            }
-
-            function showMsg(msg) {
-                $("#divStatus").text(msg);
-
-            }
-
-
-
-
-        </script>
-
-<<<<<<< HEAD
->>>>>>> 31608db2c7363eb2166fd8b2be4ffa61d1046c98
-=======
->>>>>>> 54acd04a17f217f66d93b6585a6dd2ce656b52ab
-
 
     </head>
     <body>
@@ -668,11 +249,11 @@
 
                     <div id="divPageMenuSub">
                         <a href="question_view.php"><span class="menuitem" >questions</span></a>
-<<<<<<< HEAD
+
                         <a href="answers.php"><span class="menuitem" >answers</span></a>
-=======
+
                         <a href="#"><span class="menuitem" >answers</span></a>
->>>>>>> 54acd04a17f217f66d93b6585a6dd2ce656b52ab
+
                         <a><span class="menuitem" onclick = "search(0)">refresh</span></a>
                     </div>
                     
@@ -691,7 +272,56 @@
                     $questions_obj->get_all_questions();
                     $row = $questions_obj->fetch();
                     ?>
-<<<<<<< HEAD
+                    
+                    </head>
+
+            <body>
+                <div id="divAdd" class="popupForm">
+                    <table class="tableForm" >
+                        <tr>
+
+                            <td class="field"><input type="hidden" value = "" id="question_id"  >
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label">Category ID: </td>
+                            <td class="field">
+                                CATEGORY:
+                                <select name = category id="question_category">
+<?php
+while ($rows_categories) {
+    $cid = $rows_categories["cid"];
+    echo "<option>" . $rows_categories["name"] . "</option>";
+    $rows_categories = $categories_obj->fetch();
+}
+?>
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">Community Health Officer ID:</td> 
+                            <td class="field"><input type="number" value="" id="idcho" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">Question:</td>
+                            <td class="field"><textarea cols="20" rows="5" value="" id="question" ></textarea>
+                            </td>
+                        </tr
+                        ><tr>
+                            <td class="label"></td>
+                            <td class="field">
+                                <input type="button" value="save" onClick="saveAddQuestion()" >
+                                <input type="button" value="cancel" onClick="closeAddQuestion()" >
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+
 
                     </head>
 
@@ -742,58 +372,7 @@ while ($rows_categories) {
                 </div>
 
 
-=======
 
-                    </head>
-
-            <body>
-                <div id="divAdd" class="popupForm">
-                    <table class="tableForm" >
-                        <tr>
-
-                            <td class="field"><input type="hidden" value = "" id="question_id"  >
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="label">Category ID: </td>
-                            <td class="field">
-                                CATEGORY:
-                                <select name = category id="question_category">
-<?php
-while ($rows_categories) {
-    $cid = $rows_categories["cid"];
-    echo "<option>" . $rows_categories["name"] . "</option>";
-    $rows_categories = $categories_obj->fetch();
-}
-?>
-
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label">Community Health Officer ID:</td> 
-                            <td class="field"><input type="number" value="" id="idcho" >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label">Question:</td>
-                            <td class="field"><textarea cols="20" rows="5" value="" id="question" ></textarea>
-                            </td>
-                        </tr
-                        ><tr>
-                            <td class="label"></td>
-                            <td class="field">
-                                <input type="button" value="save" onClick="saveAddQuestion()" >
-                                <input type="button" value="cancel" onClick="closeAddQuestion()" >
-                            </td>
-                        </tr>
-                    </table>
-
-                </div>
-
-
->>>>>>> 54acd04a17f217f66d93b6585a6dd2ce656b52ab
 
                 <div id="divShowAnswers" class="popupForm">
                     <table class="tableForm" >
