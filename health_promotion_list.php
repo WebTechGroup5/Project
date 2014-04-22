@@ -219,7 +219,7 @@
 //                    alert(lastRow.get(0).tagName);//.attr("id")
 
 //                    $(lastRow).append("<tr><td><a href=#>" + vtop + "</a></td><td>ff</td><td>ff</td><td>kl</td><td>ff</td></tr>");
-                    $(lastRow).after("<tr class ='" + newRow + "'><td>" + /*r.health_promotion.id*/ +"</td/><td><a href=#>" + vtop + "</a></td><td>" + vmeth + "</td><td>" + vdat + "</td><td><span class='hotspot' onclick='edit(this," + r.health_promotion.id + ")'>edit<span></td><td><span class='hotspot' onclick='del(this," + r.health_promotion.id + ")'>del<span></td></tr>");
+                    $(lastRow).after("<tr class ='" + newRow + "'><td>" + /*r.health_promotion.id*/"figure out logic" +"</td/><td><a href=#>" + vtop + "</a></td><td>" + vmeth + "</td><td>" + vdat + "</td><td><span class='hotspot' onclick='edit(this," + r.health_promotion.id + ")'>edit<span></td><td><span class='hotspot' onclick='del(this," + r.health_promotion.id + ")'>del<span></td></tr>");
 
                 }
                 else {
