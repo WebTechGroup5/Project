@@ -141,12 +141,22 @@
 				var qid = question_id;
 				var answer = document.getElementById("answerArea").value;
 				
-				var u = "question_action.php?cmd=4&id="+qid+"&sid="+sid+"&idcho="+idcho+"&answer="+answer;
+				var u = "answer_action.php?cmd=4&id="+qid+"&answer="+answer;
 				showMsg(u);
 				
+				$("#divAddAnswer").fadeOut(500);
+				
+				
+				var q = syncAjax(u);
+				
+				showMsg(q.message);
+					
+					
+			
+				}
 					
 				
-			}
+			
 			
 			function showAnswers(qid){
 				//Get answers from db
