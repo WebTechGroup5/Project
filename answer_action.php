@@ -129,18 +129,13 @@
 		
 		function add_answer(){
 			$qid = get_datan("id");
-			$sid = get_datan("sid");
-			$idcho = get_datan("idcho");
 			$answer = get_data("answer");
 			
 			
 			$var = new answers();
 							
-		
 			
-			
-			
-			if(!$var->add_answer($qid, $sid, $idcho, $answer)){
+			if(!$var->add_answer($qid, $answer)){
 				echo'{"result":0,"message":"unable to add"}';
 			}
 			else{
