@@ -190,18 +190,24 @@
 
 
             function closeAddQuestion() {
-                $("#divAdd").fadeOut(1000);
+                $("#divAdd").fadeOut(250);
+                $("#divAddAnswer").fadeOut(250);
+                $("#divShowAnswers").fadeOut(250);
                 showMsg("Cancelled");
             }
 
             function closeAnswer() {
-                $("#divAddAnswer").fadeOut(1000);
+                $("#divAdd").fadeOut(250);
+                $("#divAddAnswer").fadeOut(250);
+                $("#divShowAnswers").fadeOut(250);
                 showMsg("Answer Pop up Cancelled");
 
             }
 
             function closeAnswers() {
-                $("#divShowAnswers").fadeOut(1000);
+                $("#divAdd").fadeOut(250);
+                $("#divAddAnswer").fadeOut(250);
+                $("#divShowAnswers").fadeOut(250);
                 showMsg("Answer Pop up Cancelled");
 
             }

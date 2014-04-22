@@ -322,7 +322,6 @@
                         status message
                     </div>
                     <!---------------------------------------------------------------------------->
-
                     <div id="divPageMenuSub">
                         <a href="question_view.php"><span class="menuitem" >questions</span></a>
                         <a href="answers.php"><span class="menuitem" >answers</span></a>
@@ -376,7 +375,6 @@
                         }
                         ?>
                     </table>
-
                 </td>
             </tr>
         </table>
@@ -399,7 +397,7 @@
                     <td class="label">Target Audience :</td>
                     <td class="field"><input type="text" value="" id="target_audience" ></td>
                     <td class="label">Number Of Audience :</td>
-                    <td class="field"><input type="text" value="" id="number_of_audience" ></td>
+                    <td class="field"><input type="number" value="" id="number_of_audience" ></td>
                 </tr>
                 <tr>
                     <td class="label">Remarks :</td>
@@ -476,9 +474,9 @@
                 </tr>
                 <tr>
                     <td class="label">Latitude :</td>
-                    <td class="field"><input type="text" value="" id="latitude" ></td>
+                    <td class="field"><input type="number" value="" id="latitude" ></td>
                     <td class="label">Longitude :</td>
-                    <td class="field"><input type="text" value="" id="longitude" ></td>
+                    <td class="field"><input type="number" value="" id="longitude" ></td>
                 </tr>
                 <tr>
                     <td class="label">IDCHO :</td>
