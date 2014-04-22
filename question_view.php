@@ -396,9 +396,9 @@
 								echo "<td>".$row["qid"]."</td>";
 								echo "<td>".$row["question"]."</td>";
 								echo "<td>". $count."</td>";
-								echo "<td><span onclick = showAnswers($id)><a href>  VIEW ANSWERS  </a></span></td>";
+								echo "<td><span onclick = showAnswers($id)><button>  VIEW ANSWERS  </button></span></td>";
 								
-								echo "<td><span onclick = answerAQuestion($id)><a href >  ANSWER  </a></span></td>";
+								echo "<td><span onclick = answerAQuestion($id)><button>  ANSWER  </button></span></td>";
 								echo "</tr>";
 								$row = $questions_obj->fetch();
 							}
