@@ -18,6 +18,7 @@ body
     background-size: 1050px 1200px;
     line-height: 15px;
     background-position: center;
+    /*background-color:white;*/
 }
 /* health information system*/
 #pageheader{
@@ -66,6 +67,12 @@ body
     font-weight:bold;
     background-size: 200px 100px;
     background-color:Silver
+}
+
+#heading{
+    font-weight: bold;
+    font-size: large;
+    color: white;
 }
 
 /*top nav bar*/

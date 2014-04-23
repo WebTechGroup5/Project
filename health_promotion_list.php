@@ -205,7 +205,6 @@
                     var tabl = $(globalAddObj).closest("table");
                     var lastRow = tabl.find("tr:last");
 
-
 //                    alert($(lastRow).attr("class"));
 
                     var newRow = $(lastRow).attr("class");
@@ -279,9 +278,22 @@
 
                 $("#divEdit").css("top", y);
                 $("#divEdit").css("left", x);
-//                save();
+                
+                // clear out text boxes
+                $("#topic").prop("value", "");                        //       alert("topoc: "+r.promotion.topic);
+                $("#method").prop("value", "");                       //      alert("alert"+r.promotion.method);
+                $("#venue").prop("value", "");                          //     alert("alert"+r.promotion.venue);
+                $("#date").prop("value", "1990-01-01");                            //     alert("alert"+r.promotion.date);
+                $("#target_audience").prop("value", "");         //  alert("alert"+r.promotion.target_audience);
+                $("#number_of_audience").prop("value", "");   //  alert("alert"+r.promotion.number_of_audience);
+                $("#remarks").prop("value", "");                         //  alert("alert"+r.promotion.remarks);
+                $("#month option[value=January]").prop('selected', true);
+                $("#latitude").prop("value", "");                       //  alert("alert"+r.promotion.latitude);
+                $("#longitude").prop("value", "");                    //   alert("alert"+r.promotion.longitude);
+                $("#image").prop("value", "");                            //   alert("alert"+r.promotion.image);
+                $("#subdistrict").prop("value", 1);            //    alert("alert"+r.promotion.subdistrict_id);
+                $("#idcho").prop("value", 1);      
                 $("#divEdit").fadeIn(250);
-//                cancel();
             }
 
             //hides the form
@@ -487,7 +499,7 @@
 //                                                            }
 //                                                            
                         ?>>
-                            <option>Select a CHO</option>
+                            <!--<option value="0">Select a CHO</option>-->
                             <?php
                             $health_promo2 = new health_promotion();              //  the constructor should be the name of the class
                             $health_promo2->retrieveAll_idcho();
@@ -501,7 +513,7 @@
                     </td>
                     <td class="label">Subdistrict :</td>
                     <td class="field"><select id="subdistrict" name="inputSUBDISTRICT_ID" <?php ?>>
-                            <option>Select a Sub District</option>
+                            <!--<option value="0">Select a Sub District</option>-->
                             <?php
                             $health = new health_promotion();
                             $subdistricts = null;

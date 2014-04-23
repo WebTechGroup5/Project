@@ -54,7 +54,7 @@ switch ($cmd) {
 
     default:
         echo "{";
-        echo jsonn("result", 1);
+        echo jsonn("result", 0);
         echo ",";
         echo jsons("message", "not a recognised command");
         echo "}";
@@ -129,6 +129,9 @@ function add_promotion(){
     $sub_id = get_datan('sub_id');
     $idcho = get_datan('idcho');
     $remarks = get_data('rmks');
+    
+    $just_to_get_rows = new health_promotion();
+    $just_to_get_rows->retrieveAll_promotion();
 
     $p = new health_promotion();
     $row = $p->add_promotion($date, $venue, $topic, $method, $target_aud, $num_of_aud, $remarks, $month, $lat, $lon, $image, $idcho, $sub_id);
@@ -144,6 +147,10 @@ function add_promotion(){
     echo jsonn("result", 5) . ",";
     echo '"health_promotion":{';
     
+    // get number of rwos
+    print jsonn("rows", $just_to_get_rows->get_num_rows($just_to_get_rows->fetch())) . ",";
+    
+    // get id
     print jsonn("id", $p->get_insert_id()) . ",";
     //name
     print jsons("topic", $topic) . ",";
