@@ -19,6 +19,46 @@
 				
 			}
 			
+			
+			/*
+			* Method to refresh the list of questions
+			*/
+			function refreshTable(){
+							var u = "question_action.php?cmd=3";
+				var r = syncAjax(u);
+				
+				if(r.result == 0){
+					showMsg(r.message);	
+				}
+				else
+				{
+					
+					$("#mainbody").empty();
+					
+					
+					var row_counter = 1;
+					
+					
+					for(var i = 0; i < r.question.length; i++){
+							var ctid= r.question[i].question_id;
+							
+							
+							if (row_counter % 2 == 0) {
+                                var style = " class='row1' ";
+                            } else {
+                                var style = " class='row2' ";
+							}
+							row_counter++;
+							$("#mainbody").append("<tr"+style+"><td>"+r.question[i].question_id+"</td><td>"+r.question[i].question+"</td><td>"+countAns(ctid)+"</td><td><span onclick = 'showAnswers("+ctid+")'><button>  VIEW ANSWERS  </button></span></td><td><span onclick = 'answerAQuestion("+ctid+")'><button >  ANSWER  </button></span></td></tr>");
+							
+							}	
+							showMsg("Showing Results of Search:" + row_counter);
+				}
+				
+				
+			
+			}
+			
 			function popUp(){
 				
 				$("#divAdd").fadeIn(500);
@@ -68,20 +108,6 @@
 							row_counter++;
 							$("#mainbody").append("<tr"+style+"><td>"+r.question[i].question_id+"</td><td>"+r.question[i].question+"</td><td>"+countAns(ctid)+"</td><td><span onclick = 'showAnswers("+ctid+")'><button>  VIEW ANSWERS  </button></span></td><td><span onclick = 'answerAQuestion("+ctid+")'><button >  ANSWER  </button></span></td></tr>");
 							
-							/*
-								$row_counter++;
-								$id = $row["qid"];
-								$count = $questions_obj2->count_answers($id);
-								echo "<tr $style>";
-								echo "<td>".$row["qid"]."</td>";
-								echo "<td>".$row["question"]."</td>";
-								echo "<td>". $count."</td>";
-								echo "<td onclick = showAnswers($id)><a href>  VIEW ANSWERS  </a></td>";
-								
-								echo "<td onclick = answerAQuestion($id)><a href >  ANSWER  </a></td>";
-								echo "</tr>";
-								$row = $questions_obj->fetch();
-							*/
 							}	
 							showMsg("Showing Results of Search:" + row_counter);
 				}
@@ -102,6 +128,7 @@
 				$("#divAddAnswer").fadeIn(500);	
 				
 				question_id = $id;
+				refreshTable();	
 			}
             
             function getQuestion(qid){
@@ -133,6 +160,7 @@
 					showMsg(r.message);
 					
 				}
+				refreshTable();	
 			}
 			
 			
@@ -151,7 +179,7 @@
 				var q = syncAjax(u);
 				
 				showMsg(q.message);
-					
+				refreshTable();	
 					
 			
 				}

@@ -27,7 +27,7 @@
 			
 		case 3:
 			//get all questionss 
-			getall_question();
+			getall_questions();
 			break;
 			
 		case 4:
@@ -117,13 +117,13 @@
 	
 	function getall_questions(){
 		$q = new questions();
-		$q->getall_question();
+		$q->get_all_questions();
 		if($q){
 			$row = $q->fetch();
 			
 			echo "{";
 			echo jsonn("result", 1).",";
-			echo '"promotion":';
+			echo '"question":';
 			echo "[";
 			
 			while($row){
@@ -141,6 +141,11 @@
 					echo ",";
 				}
 			}
+			
+			echo "]";
+			
+			echo "}";
+			
 			
 		
 			
