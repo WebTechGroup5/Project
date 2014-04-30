@@ -276,13 +276,9 @@
                     </div>
 
                     <div id="divPageMenuSub">
-                        <a href="question_view.php"><span class="menuitem" >questions</span></a>
+                        <a href="question_view.php"><span class="menuitem" >Questions & Answers</span></a>
 
-                        <a href="answers.php"><span class="menuitem" >answers</span></a>
-
-                        <a href="#"><span class="menuitem" >answers</span></a>
-
-                        <a><span class="menuitem" onclick = "search(0)">refresh</span></a>
+                        <a><span class="menuitem" onclick = "refreshTable()">Show All</span></a>
                     </div>
                     
                     <span style="font-weight: bold; font-size: large">Questions</span>
