@@ -48,7 +48,7 @@ class health_promotion extends adb {
     }
 
     function retrieveAll_promotion($start = 0) {
-        $display = 10;
+        $display = 20;
         $result = $start * $display;
         $query = "SELECT * FROM health_promotion LIMIT $result, $display;";
 //        print $query;
