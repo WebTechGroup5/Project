@@ -1,23 +1,48 @@
 <html>
     <head>
+        <?php
+        session_start();
+        ?>
 
         <title>Health Promotion List</title>
         <link rel="stylesheet" href="style.css">
         <script src="jquery-1.11.0.js"></script>
-        <script src="gen.js"></script>
+        <!--<script src="gen.js"></script>-->
         <script>
             var globalVar;
             var spanVarPar;
 
             var globalAddObj;
 
+//            function displayPerson() {
+////                alert("obj.name");
+////                var obj = getPerson();		//makes a AJAX call and return the resulting object
+//                var obj = {"id": 3, "name": "Kingston", "birthdate": "3-3-2001", "gender": "m", "phonenumber": "0244"};
+////                var tableID = $("#tablePerson").closest("tr");
+////                alert(obj.name);
+//                var tableID = $("#tablePerson").closest("table");
+//                $(tableID).empty();
+//                var a = "<tr id ='tablePerson'><td> ID:</td><td>" + obj.id + "</td></tr><tr><td> Name:</td><td>" + obj.name + "</td></tr>";
+//                $("#tablePerson").append(a);
+////                alert(obj.name + a);
+//
+//            }
+////
+//            function dispPerson() {
+//                var obj = {"id": 3, "name": "Kingston", "birthdate": "3-3-2001", "gender": "m", "phonenumber": "0244"};
+//                var r = "<tr><td> ID:</td><td>" + obj.id + "</td></tr><tr><td> Name:</td><td>" + obj.name + "</td></tr><tr><td> Birth date:</td><td></td></tr>	<tr><td> Gender:</td><td></td></tr>";
+//                alert(r);
+//                document.getElementById("tablePerson").innerHTML = r;
+//            }
+
+
             function search(num) {
                 cancel();
-                
+
                 if (num == 1) {
                     var search = $("#txtSearch").val();
-                    
-                    if(search == ""){
+
+                    if (search == "") {
                         $("#divStatus").text("Ha Ha Ha, you did not search for anything");
                         $("#divStatus").css({'color': 'yellow'});
                         return;
@@ -33,15 +58,15 @@
                         $("#divStatus").css({'color': 'yellow'});
                         return;
                     }
-                    
+
                     $("#divStatus").text("Search results for: \"" + search + "\"");
                     $("#divStatus").css({'color': 'yellow'});
-                    
+
                     var tabl = $("#searchTable").closest("table");
 
                     var newRow = "row2";
 
-//                header
+//                  header
                     $(tabl).append("<tr class ='header'><td>#</td><td>Topic</td><td>Method</td><td>Date</td><td>Edit</td><td>Delete</td></tr>");
 
                     var i = 0;
@@ -67,9 +92,10 @@
                     var tabl = $("#searchTable").closest("table");
 
                     var newRow = "row2";
-
+                    var entry = "<tr class ='header'><td>#</td><td>Topic</td><td>Method</td><td>Date</td><td>Edit</td><td>Delete</td></tr>";
 //                header
-                    $(tabl).append("<tr class ='header'><td>#</td><td>Topic</td><td>Method</td><td>Date</td><td>Edit</td><td>Delete</td></tr>");
+//                    document.getElementById("tablePerson").innerHTML = r;
+                    $(tabl).append(entry);
 
                     var i = 0;
                     while (i < r.found_promotions.length) {
@@ -219,7 +245,7 @@
 //                    alert(lastRow.get(0).tagName);//.attr("id")
 
 //                    $(lastRow).append("<tr><td><a href=#>" + vtop + "</a></td><td>ff</td><td>ff</td><td>kl</td><td>ff</td></tr>");
-                    $(lastRow).after("<tr class ='" + newRow + "'><td>" + (r.health_promotion.rows+1) +"</td/><td><a href=#>" + vtop + "</a></td><td>" + vmeth + "</td><td>" + vdat + "</td><td><span class='hotspot' onclick='edit(this," + r.health_promotion.id + ")'>edit<span></td><td><span class='hotspot' onclick='del(this," + r.health_promotion.id + ")'>del<span></td></tr>");
+                    $(lastRow).after("<tr class ='" + newRow + "'><td>" + (r.health_promotion.rows + 1) + "</td/><td><a href=#>" + vtop + "</a></td><td>" + vmeth + "</td><td>" + vdat + "</td><td><span class='hotspot' onclick='edit(this," + r.health_promotion.id + ")'>edit<span></td><td><span class='hotspot' onclick='del(this," + r.health_promotion.id + ")'>del<span></td></tr>");
 
                 }
                 else {
@@ -257,6 +283,7 @@
             }
 
             function rem() {
+                // spanVarPar represents that hightlighted row
                 spanVarPar.remove();
 
                 var u = "health_promotion_action.php?cmd=3&idhp=" + globalVar;
@@ -308,9 +335,69 @@
                 $("#divEdit").fadeOut(250);
                 $("#divDel").fadeOut(250);
             }
+
+//            function addTwenty(start, num) {
+//                return start = start + num;
+//            }
+//            var pageN = 0;
+//            function addOne() {
+//
+////                var url = "location:href='health_promotion_list.php?start=1'";
+//                var url = "health_promotion_list.php?start=1";
+//                window.open(url; _self);
+//
+//                        return url;
+//            }
         </script>
+        <?php
+        include("./health_promotion.php");
+//        $MAX = $start;
+        $h_obj = new health_promotion();
+        if (!$h_obj->retrieveAll_promotion($_SESSION['start'])) {
+//                            print $start;
+            echo "error with retrieveAll_promotion in health_promotion_list around 370";
+            exit();
+        }
+        if (!$h_obj->fetch()) {
+            
+        }
+        ?>
+        <?php
+        $start = 0;
+
+
+        if (isset($_REQUEST['start'])) {
+            $_SESSION['start'] = $_SESSION['start'] + 1;
+            if (!$h_obj->fetch()) {
+                $_SESSION['start'] = $_SESSION['start'] - 2;
+            }
+//            if ($_SESSION['start'] > Max) {
+//                $_SESSION['start'] = $_SESSION['start'] - 1;
+//            }
+
+            $start = $_SESSION['start']; // $_REQUEST['add'];
+//            print $start . " fdsdsad";
+        }
+
+//        $_SESSION['sub'] = ((isset($_SESSION['sub'])) ? $_SESSION['sub'] : 0);
+        else if (isset($_REQUEST['sub'])) {
+            $_SESSION['start'] = $_SESSION['start'] - 1;
+            if ($_SESSION['start'] < 0) {
+                $_SESSION['start'] = 0;
+            }
+            $start = $_SESSION['start'];
+//            print $start;
+        }
+        ?>
     </head>
     <body>
+<!--        <table id="tablePerson">
+            <tr onclick="dispPerson()"><td> ID:</td><td>    </td></tr>
+            <tr><td> Name:</td><td></td></tr>
+            <tr><td> Birth date:</td><td></td></tr>
+            <tr><td> Gender:</td><td></td></tr>
+        </table>-->
+
         <table>
             <tr>
                 <td colspan="2" id="pageheader">
@@ -339,7 +426,7 @@
                     <div id="divStatus" class="status">
                         status message
                     </div>
-                    <!---------------------------------------------------------------------------->
+                    <!---------------------------------------------------------------------------------------->
                     <div id="divPageMenuSub">
                         <a href="question_view.php"><span class="menuitem" >questions</span></a>
                         <a href="#"><span class="menuitem" >answers</span></a>
@@ -358,10 +445,10 @@
                             <td>Delete</td>
                         </tr>
                         <?php
-                        include("./health_promotion.php");
+//                        include("./health_promotion.php");
                         $obj = new health_promotion();
-                        if (!$obj->retrieveAll_promotion()) {
-                            echo "error";
+                        if (!$obj->retrieveAll_promotion($start)) {
+                            echo "error with retrieveAll_promotion in health_promotion_list around 370";
                             exit();
                         }
 
@@ -396,6 +483,18 @@
                 </td>
             </tr>
         </table>
+        <form action="health_promotion_list.php" method="GET" class="field" style="float:right;">
+            <<
+            <input type="submit" name="first" value="First" />
+            <
+            <input type="submit" name="sub" value="Previous" />
+            <?php print $start+1; ?>
+            <input type="submit" name="start" value="Next" />
+            >
+            <input type="submit" name="last" value="Last" />
+            >>
+        </form>
+
 
         <div id="divEdit" class="popupForm">
             <table class="tableForm" >

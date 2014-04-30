@@ -47,8 +47,11 @@ class health_promotion extends adb {
         return $this->query($query);
     }
 
-    function retrieveAll_promotion() {
-        $query = "SELECT * FROM health_promotion";
+    function retrieveAll_promotion($start = 0) {
+        $display = 10;
+        $result = $start * $display;
+        $query = "SELECT * FROM health_promotion LIMIT $result, $display;";
+//        print $query;
         return $this->query($query);
     }
     
@@ -57,7 +60,7 @@ class health_promotion extends adb {
      */
     function retrieve_promo_by_id_promo($idhealth_promotion){
         $query = "SELECT * FROM health_promotion where idhealth_promotion = $idhealth_promotion;";
-
+//        print $query;
         return $this->query($query);
     }
 

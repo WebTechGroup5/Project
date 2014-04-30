@@ -8,6 +8,7 @@ $cmd = get_datan("cmd");
 $id = get_data("id");
 $date = get_data("date");
 $venue = get_data("venue");
+$page = get_datan("start");
 
 switch ($cmd) {
 
@@ -131,7 +132,7 @@ function add_promotion(){
     $remarks = get_data('rmks');
     
     $just_to_get_rows = new health_promotion();
-    $just_to_get_rows->retrieveAll_promotion();
+    $just_to_get_rows->retrieveAll_promotion($page);
 
     $p = new health_promotion();
     $row = $p->add_promotion($date, $venue, $topic, $method, $target_aud, $num_of_aud, $remarks, $month, $lat, $lon, $image, $idcho, $sub_id);
@@ -310,7 +311,7 @@ function delete_promotion() {
 
 function get_all_promotions() {
     $p = new health_promotion();
-    $p->retrieveAll_promotion();
+    $p->retrieveAll_promotion($page);
 
     if ($p) {
         $row = $p->fetch();
